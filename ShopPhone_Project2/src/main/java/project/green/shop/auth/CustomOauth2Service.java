@@ -10,7 +10,7 @@ public class CustomOauth2Service extends DefaultOAuth2UserService {
 
 	@Override
 	public OAuth2User loadUser(OAuth2UserRequest userRequest) throws OAuth2AuthenticationException {
-		
+	//load user for OAuth2
 		return new CustomOauth2(super.loadUser(userRequest));
 	}
 	
