@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html  xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Register Form</title>
+  <link rel="stylesheet" href="css/styleRegister.css">
+</head>
+<body>
+<div class="form_wrapper">
+  <div class="form_container">
+    <div class="title_container">
+      <h2>Đăng Ký</h2>
+    </div>
+    <div class="row clearfix">
+      <div class="">
+        <form  th:action="@{/save}" th:object="${Custumer}" method="post">
+          <div class="input_field"> <span><i aria-hidden="true" class="fa fa-envelope"></i></span>
+            <input type="email" th:field="*{email1}" placeholder="Email" required />
+          </div>		  
+          <div class="input_field"> <span><i aria-hidden="true" class="fa fa-lock"></i></span>
+            <input type="password" id="password" placeholder="Password" required   onChange="onChange()" />
+          </div>
+          <div class="input_field"> <span><i aria-hidden="true" class="fa fa-lock"></i></span>
+            <input type="password" id="confirm_password" th:field="*{password1}" placeholder="Nhập lại Password" required  onChange="onChange()"/>
+          </div>
+          </div>                                      
+                <div class="select_arrow"></div>
+              </div>
+			  <div class="input_field radio_option" id="sex">
+              <input type="radio"  id="rd1" required>
+              <label for="rd1">Nam</label>
+              <input type="radio" id="rd2" required>
+              <label for="rd2">Nữ</label>
+              </div>
+            <div class="input_field checkbox_option">
+            	<input type="checkbox" id="cb1"  required>
+    			<label for="cb1">Tôi đồng ý với các điều khoản trên</label>
+            </div>
+            <div class="input_field checkbox_option">
+            	<input type="checkbox" id="cb2" required>
+    			<label for="cb2">Điều khoản trên là gì tôi không biết?!!</label>
+            </div>
+          <input class="button" type="submit" value="Register" />
+		   <div>
+            <p>Đã có tài khoản nhưng vẫn thích khịa Admin??!! <a href="Login.html">Đăng nhập</a></p>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<p class="credit">Developed by <a href="https://facebook.com/JupiterElf148" target="_blank">Thế Dân</a></p>
+<!-- partial -->
+  <script src='https://use.fontawesome.com/4ecc3dbb0b.js'></script>
+ </body>
+</html>

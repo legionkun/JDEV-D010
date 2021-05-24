@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Login</title>
+<link href="css/styleLogin.css" rel='stylesheet' type='text/css' />
+</head>
+<body background ="images/bg-3.png">
+    <div class="login-form-1">
+			<div class="close-2"> </div>
+					<div class="head">
+					</div>
+					<div class="head-info">
+						<h1>Login</h1>
+						<h2>Chào Mừng bạn đã trở lại</h2>
+					</div>
+					 <p th:if="${param.error}" class="error">Invalid email or password</p>
+     			   <p th:if="${param.logout}" class="success">You have been logged out</p>
+				<form th:action="@{dologin}" method="post">
+					<li>
+						<input type="text" class="text" name="email1" placeholder="Email" required >
+					</li>
+					<li>
+						<input type="password" name="password1" placeholder="Password" required  >
+					</li>
+					<div class="p-container">
+								<input type="submit" value="Đăng nhập" th:formaction="@{dologin}" formmethod="post">
+							<div class="clear"> </div>
+					</div>
+				</form>
+				<div class="social-icons">
+							<div class="but-bottom">
+							<a href="/forgot" class="account"><p>Quên Mật khẩu?</p></a>
+							<a href="/register" class="trouble"><p>Đăng Ký?</p></a><div class="clear"> </div></div>
+							<a class="social-account"><h3>Bạn đã có tài khoản Mạng xã hội</h3></a>
+							<a th:href="@{/oauth2/authorization/facebook}"><ul class="facebook">
+								<li><img src="images/fb.png" />Facebook</li>
+							</ul></a>
+							<a th:href="@{/oauth2/authorization/google}"><ul class="twitter">
+								<li><img src="images/gp.png" />Google</li>
+							</ul></a>
+							<div class="clear"> </div>
+				</div>
+</body>
+</html>

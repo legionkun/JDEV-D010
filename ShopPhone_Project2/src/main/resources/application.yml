@@ -1,0 +1,53 @@
+server:
+  port: 9090
+spring:
+  datasource:
+    password: ''
+    url: jdbc:mysql://localhost:3306/shopfone
+    username: root
+  jpa:
+    hibernate:
+      ddl-auto: none
+      naming:
+        strategy: org.hibernate.cfg.ImprovedNamingStrategy
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL5Dialect
+    show-sql: true
+  thymeleaf:
+    cache: false
+    content-type: 'text/html # ;charset=<encoding> is added'
+    encoding: UTF-8
+    mode: HTML5
+    prefix: classpath:/templates/
+    suffix: .html
+  mail:
+    host : smtp.gmail.com
+    password: wwxfgizfqgyzuoon
+    port: 587
+    properties:
+          mail:
+            smtp: 
+              auth: true
+              starttls:
+                enable: true
+    username: kamusuyurikun@gmail.com
+    
+  security:
+      oauth2:
+        client:
+          registration:
+            facebook:
+              client-id: 485258609196273
+              client-secret: 0451b697567e5b19560d60d3b99750bf
+              scope: 
+                - email
+                - public_profile
+            google:
+              client-id: 736896694978-a7ru3la8v36t6ob3srvfcvgjlp8tkipd.apps.googleusercontent.com
+              client-secret: W8iQFmtuoDh3OK5hw0G8Ac0d
+              scope: 
+                - email
+                - profile
+
+                
