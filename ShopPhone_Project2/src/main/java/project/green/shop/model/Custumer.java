@@ -21,6 +21,8 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
+import org.springframework.security.crypto.password.PasswordEncoder;
+
 import project.green.shop.auth.EnumProvider;
 
 @Entity
@@ -38,6 +40,8 @@ public class Custumer implements Serializable{
 		private String password1;
 		private String hoten;
 		private String diachi1;
+		@Column(name="image")
+		private String Image;
 		private String sdt1;		
 		@Column(updatable= false)
 		private Date createtime;
@@ -48,7 +52,7 @@ public class Custumer implements Serializable{
 		private project.green.shop.auth.EnumProvider  auth_provider;
 		@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 		@JoinTable(name = "user_role", 
-			 joinColumns = @JoinColumn (name = "id1"), 
+			 joinColumns = @JoinColumn (name = "id"), 
 			 inverseJoinColumns = @JoinColumn (name = "idrole"))
 		private Set<Role> roles = new HashSet<>();
 		@Column(name="verification_code", updatable=false)
@@ -57,6 +61,14 @@ public class Custumer implements Serializable{
 		
 		public String getVarificationCode() {
 			return varificationCode;
+		}
+		
+		public String getImage() {
+			return Image;
+		}
+
+		public void setImage(String image) {
+			Image = image;
 		}
 
 		public void setVarificationCode(String varificationCode) {
@@ -134,15 +146,17 @@ public class Custumer implements Serializable{
 			this.roles = roles;
 		}
 
-		public Custumer(int id, String email1, String password1, String hoten, String diachi1, String sdt1,
-				Date createtime, Date lasttime, boolean enabled, EnumProvider auth_provider, Set<Role> roles,
-				String varificationCode) {
+
+		public Custumer(int id, String email1, String password1, String hoten, String diachi1, String image,
+				String sdt1, Date createtime, Date lasttime, boolean enabled, EnumProvider auth_provider,
+				Set<Role> roles, String varificationCode) {
 			super();
 			this.id = id;
 			this.email1 = email1;
 			this.password1 = password1;
 			this.hoten = hoten;
 			this.diachi1 = diachi1;
+			this.Image = image;
 			this.sdt1 = sdt1;
 			this.createtime = createtime;
 			this.lasttime = lasttime;

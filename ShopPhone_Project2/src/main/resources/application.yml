@@ -32,7 +32,8 @@ spring:
               starttls:
                 enable: true
     username: kamusuyurikun@gmail.com
-    
+ 
+  
   security:
       oauth2:
         client:
@@ -49,5 +50,4 @@ spring:
               scope: 
                 - email
                 - profile
-
                 

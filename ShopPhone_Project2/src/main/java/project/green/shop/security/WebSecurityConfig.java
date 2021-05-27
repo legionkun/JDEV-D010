@@ -13,19 +13,22 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
+
 import project.green.shop.DAO.CustumerService;
 import project.green.shop.auth.CustomOauth2Service;
 import project.green.shop.handle.OAuth2LoginSuccess;
 import project.green.shop.helper.CustomAccessDeniedHandler;
 
 @Configuration()
-@EnableWebSecurity
+@EnableWebSecurity(debug= false)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
+
 	@Bean
-	public BCryptPasswordEncoder passwordEncoder()
-	{
+	public BCryptPasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();
-	}
+		}
+
+
 	@Bean
 	public UserDetailsService userDetailsService()
 	{
@@ -37,6 +40,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
 		authProvider.setUserDetailsService(userDetailsService());
 		authProvider.setPasswordEncoder(passwordEncoder());
+		System.out.println(" "+ passwordEncoder());
 		return authProvider;
 	}
 	
@@ -49,21 +53,22 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	    public CustomAccessDeniedHandler accessDeniedHandler() {
 	        return new CustomAccessDeniedHandler();
 	    }
+
 	@Autowired
 	private CustomOauth2Service customservice;
 	@Autowired
 	private OAuth2LoginSuccess success;
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http.authorizeRequests().antMatchers("/","/verify","/access-denied","/403","/oauth2/**","/css/**","/images/**","/js/**","/lib/**","/aboutus","/Login","/register","/quydinhgiaohang","/forgot","/save","Register").permitAll()
+		http.authorizeRequests().antMatchers("/","/verify","/profile/update","/access-denied","/403","/oauth2/**","/css/**","/images/**","/js/**","/lib/**","/aboutus","/Login","/register","/quydinhgiaohang","/forgot","/save","Register").permitAll()
 		.anyRequest().authenticated()
 		.and().formLogin().loginPage("/Login").permitAll()
 		.usernameParameter("email1")
 		.passwordParameter("password1")
 		.defaultSuccessUrl("/")
-		.loginProcessingUrl("/dologin")
-		.failureHandler(new project.green.shop.handle.OnAuthenticationFailueHandler())
+		.loginProcessingUrl("/dologin")	
 		.successHandler(new project.green.shop.handle.OnAuthenticationSuccessHandler())
+		.failureHandler(new project.green.shop.handle.OnAuthenticationFailueHandler())
 		.and().exceptionHandling().accessDeniedHandler(accessDeniedHandler())
 		.and().csrf().disable().logout().logoutSuccessUrl("/")
 		.permitAll()

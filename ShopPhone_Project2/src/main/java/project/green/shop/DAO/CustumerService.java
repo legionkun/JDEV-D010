@@ -64,6 +64,14 @@ public class CustumerService implements UserDetailsService{
 		customer.setSdt1(sdt1);
 		cusrepo.save(customer);
 	}
+	public Custumer editCustumer(Custumer cus)
+	{
+		cus.setImage(cus.getImage());
+		cus.setDiachi1(cus.getDiachi1());
+		cus.setHoten(cus.getHoten());
+		cus.setPassword1(cus.getPassword1());
+		return cusrepo.save(cus);
+	}
 	
 	//tạo mới tk chưa kích hoạt
 	public void RegisterCustomer(Custumer custumer) {
@@ -71,7 +79,7 @@ public class CustumerService implements UserDetailsService{
 		Date date = new Date();
 		custumer.setCreatetime(date);
 		custumer.setLasttime(date);
-		custumer.setPassword1(encoder.encode(("")));
+		custumer.setPassword1(encoder.encode(custumer.getPassword1()));
 		custumer.setEnabled(false);
 		String RandomCode = RandomString.make(64);
 		custumer.setVarificationCode(RandomCode);

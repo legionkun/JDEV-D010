@@ -1,30 +1,44 @@
 package project.green.shop.controller;
 
 import java.io.UnsupportedEncodingException;
+import java.security.Principal;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.tomcat.util.http.fileupload.FileUpload;
+import org.apache.tomcat.util.http.fileupload.FileUploadBase;
+import org.apache.tomcat.util.http.fileupload.FileUploadException;
+import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.data.repository.query.Param;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
+
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+
 
 import project.green.shop.DAO.CustumerService;
 import project.green.shop.handle.Utility;
 import project.green.shop.model.Custumer;
+import project.green.shop.security.MyUserDetails;
 
 
 @Controller
@@ -48,10 +62,35 @@ public class appcontroller {
 	{
 		return "Login";
 	}
-	@RequestMapping("/profile")
-	public String ShowProfile()
-	{
+	
+	@Autowired
+	private CustumerService cus;
+	@RequestMapping(value="/profile", method = RequestMethod.GET)
+	public String ShowProfile(Model model,@AuthenticationPrincipal MyUserDetails user )
+	{		
+		String u = user.getUsername();
+		model.addAttribute("custum",cus.getByEmail(u));
 		return "profile";
+	}
+	@PostMapping("/profile/update")
+	public String UpdateProfile(Custumer custumer,@AuthenticationPrincipal MyUserDetails user,RedirectAttributes redirect,@RequestParam("image") MultipartFile multi)
+	{
+		if(!multi.isEmpty())
+		{
+			String filename= org.springframework.util.StringUtils.cleanPath(multi.getOriginalFilename());
+			custumer.setImage(filename);
+			Custumer edit = cus.editCustumer(custumer);
+			String UploadDir= "custumer-photo/" + edit.getEmail1();
+		}else if(custumer.getImage().isEmpty())
+		{
+			custumer.setImage(null);
+			cus.editCustumer(custumer);
+		}
+		user.setHoten(custumer.getHoten());
+		user.setDiachi(custumer.getDiachi1());
+		user.setSdt(custumer.getSdt1());
+		redirect.addFlashAttribute("message","Cập nhật thành công");
+		return "redirect:/profile";		
 	}
 	@RequestMapping("/aboutus")
 	public String showUS() {
@@ -102,8 +141,7 @@ public class appcontroller {
 		return "redirect:/";
 	}
 	
-	@Autowired
-	private CustumerService cus;
+	
 	@GetMapping("/verify")
 	public String Active(@Param("code")String code, Model model)
 	{

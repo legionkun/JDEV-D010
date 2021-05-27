@@ -14,9 +14,14 @@ public class OnAuthenticationFailueHandler implements AuthenticationFailureHandl
 	@Override
 	public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response,
 			AuthenticationException exception) throws IOException, ServletException {
-		
-		System.out.println("Login falied");
+		try {
+		 String error = exception.getMessage();
+		System.out.println("Login falied" + error);
 		response.sendRedirect("/403");
+	
+	}catch(Exception E)
+	{
+		System.out.println(" "+E.getMessage());
 	}
-
+	}
 }

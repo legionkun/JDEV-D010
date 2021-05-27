@@ -6,7 +6,7 @@ public class BcryptPasswordGenerator {
 
 	public static void main(String[] args) {
 		BCryptPasswordEncoder encoder=new BCryptPasswordEncoder();
-		System.out.println("Pass bạn là : "+ encoder.encode(""));
+		System.out.println("Pass bạn là : "+ encoder.encode("123"));
 	}
 }
                                                                

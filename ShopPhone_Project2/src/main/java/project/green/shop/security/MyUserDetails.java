@@ -19,7 +19,6 @@ public class MyUserDetails  implements UserDetails{
 	 */
 	private static final long serialVersionUID = -8015629406528630839L;
 	private Custumer user;
-	
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		List<SimpleGrantedAuthority> authorities = new ArrayList<>();
@@ -69,7 +68,31 @@ public class MyUserDetails  implements UserDetails{
 		
 		return user.isEnabled();
 	}
+	public Custumer getUser() {
+		return user;
+	}
+	public void setUser(Custumer user) {
+		this.user = user;
+	}
+	public void setHoten(String hoten) {
+		this.user.setHoten(hoten);
+	}
 
+	public void setDiachi(String diachi) {
+		this.user.setDiachi1(diachi);
+	}
+
+	public void setSdt(String sdt) {
+		this.user.setSdt1(sdt);
+	}
+
+	public void setImage(String image) {
+		this.user.setImage(image);
+	}
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+	
 
 
 }
