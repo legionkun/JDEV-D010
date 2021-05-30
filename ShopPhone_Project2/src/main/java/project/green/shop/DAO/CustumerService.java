@@ -66,10 +66,12 @@ public class CustumerService implements UserDetailsService{
 	}
 	public Custumer editCustumer(Custumer cus)
 	{
+		 BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 		cus.setImage(cus.getImage());
 		cus.setDiachi1(cus.getDiachi1());
 		cus.setHoten(cus.getHoten());
-		cus.setPassword1(cus.getPassword1());
+		cus.setSdt1(cus.getSdt1());
+		cus.setPassword1(encoder.encode("")+cus.getPassword1());
 		return cusrepo.save(cus);
 	}
 	

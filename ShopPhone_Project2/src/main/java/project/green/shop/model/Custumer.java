@@ -20,8 +20,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
-
-import org.springframework.security.crypto.password.PasswordEncoder;
+import javax.persistence.Transient;
 
 import project.green.shop.auth.EnumProvider;
 
@@ -62,9 +61,13 @@ public class Custumer implements Serializable{
 		public String getVarificationCode() {
 			return varificationCode;
 		}
-		
+		@Transient
 		public String getImage() {
-			return Image;
+			if (id == 0 && this.Image == null) {
+				return null;
+			}
+			
+			return "/custumer-photo/" + this.id + "/" + this.Image;
 		}
 
 		public void setImage(String image) {

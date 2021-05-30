@@ -19,6 +19,7 @@ public class MyUserDetails  implements UserDetails{
 	 */
 	private static final long serialVersionUID = -8015629406528630839L;
 	private Custumer user;
+
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		List<SimpleGrantedAuthority> authorities = new ArrayList<>();
@@ -92,7 +93,18 @@ public class MyUserDetails  implements UserDetails{
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
-	
+	public String getDiaChi() {
+		return user.getDiachi1();
+	}
+
+	public String getSDT() {
+		return user.getSdt1();
+	}
+
+	public String getHoten() {
+		return user.getHoten();
+	}
+
 
 
 }

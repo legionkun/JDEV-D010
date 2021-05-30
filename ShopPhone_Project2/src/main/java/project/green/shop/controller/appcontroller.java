@@ -1,5 +1,6 @@
 package project.green.shop.controller;
 
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.security.Principal;
 
@@ -37,6 +38,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import project.green.shop.DAO.CustumerService;
 import project.green.shop.handle.Utility;
+import project.green.shop.helper.FileUpLoadHelper;
 import project.green.shop.model.Custumer;
 import project.green.shop.security.MyUserDetails;
 
@@ -69,28 +71,28 @@ public class appcontroller {
 	public String ShowProfile(Model model,@AuthenticationPrincipal MyUserDetails user )
 	{		
 		String u = user.getUsername();
-		model.addAttribute("custum",cus.getByEmail(u));
+		model.addAttribute("Custumer",cus.getByEmail(u));
 		return "profile";
 	}
 	@PostMapping("/profile/update")
-	public String UpdateProfile(Custumer custumer,@AuthenticationPrincipal MyUserDetails user,RedirectAttributes redirect,@RequestParam("image") MultipartFile multi)
+	public String UpdateProfile(@ModelAttribute("Custumer") Custumer user,@RequestParam("image") MultipartFile multi,@RequestParam String author) throws IOException
 	{
 		if(!multi.isEmpty())
 		{
 			String filename= org.springframework.util.StringUtils.cleanPath(multi.getOriginalFilename());
-			custumer.setImage(filename);
-			Custumer edit = cus.editCustumer(custumer);
+			user.setImage(filename);
+			Custumer edit = cus.editCustumer(user);
 			String UploadDir= "custumer-photo/" + edit.getEmail1();
-		}else if(custumer.getImage().isEmpty())
+			System.out.println("saveProfile photo path: " + filename + " for user id" + user.getId());
+			System.out.println(multi);
+		    System.out.println(author);
+			FileUpLoadHelper.SaveFile(UploadDir, filename, multi);
+		}else if(user.getImage().isEmpty())
 		{
-			custumer.setImage(null);
-			cus.editCustumer(custumer);
+			user.setImage(null);
+			cus.editCustumer(user);
 		}
-		user.setHoten(custumer.getHoten());
-		user.setDiachi(custumer.getDiachi1());
-		user.setSdt(custumer.getSdt1());
-		redirect.addFlashAttribute("message","Cập nhật thành công");
-		return "redirect:/profile";		
+		return "redirect:/";		
 	}
 	@RequestMapping("/aboutus")
 	public String showUS() {
@@ -136,8 +138,7 @@ public class appcontroller {
 		helper.setTo(custumer.getEmail1());
 		ClassPathResource resoures = new ClassPathResource("/static/images/phoenix.jpg");
 		helper.addInline("Logoimage", resoures);
-		MailSendder.send(message);
-		
+		MailSendder.send(message);	
 		return "redirect:/";
 	}
 	

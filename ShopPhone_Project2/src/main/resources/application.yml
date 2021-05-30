@@ -1,10 +1,15 @@
 server:
   port: 9090
+  
 spring:
   datasource:
     password: ''
     url: jdbc:mysql://localhost:3306/shopfone
     username: root
+  http:
+    multipart: enabled=true  
+       - max-file-size=500000KB
+       - max-request-size=500000KB     
   jpa:
     hibernate:
       ddl-auto: none
@@ -14,6 +19,7 @@ spring:
       hibernate:
         dialect: org.hibernate.dialect.MySQL5Dialect
     show-sql: true
+    
   thymeleaf:
     cache: false
     content-type: 'text/html # ;charset=<encoding> is added'
@@ -21,6 +27,7 @@ spring:
     mode: HTML5
     prefix: classpath:/templates/
     suffix: .html
+    
   mail:
     host : smtp.gmail.com
     password: wwxfgizfqgyzuoon
@@ -50,4 +57,4 @@ spring:
               scope: 
                 - email
                 - profile
-                
+        

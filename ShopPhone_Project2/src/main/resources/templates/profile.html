@@ -14,6 +14,7 @@
 	<link rel="stylesheet" href="css/scrolling.css">
 	<link rel="stylesheet" href="js/fancy.js">
 	<link rel="stylesheet" href="css/responsive.css">
+	<link rel="stylesheet" href="css/styleRegister.css">
 	<link rel="stylesheet" href="libs/bootstrap/js/jquery.fancybox.min.js">
 	<script src="https://cdn.jsdelivr.net/npm/jquery@3.4.1/dist/jquery.min.js"></script>
 
@@ -232,8 +233,7 @@
 							</div>
 						</div>
 						<div class="col-xs-12 col-sm-12 col-md-12 col-lg-9 order-lg-1 order-0">
-						<form th:action="@{/profile/update}" method="post" th:object="${custum}">
-						<div th:if="${message != null}" class = "alert alert-success text-center" >[[${message}]]</div>
+						<form th:action="@{/profile/update}" method="post" th:object="${Custumer}" enctype="multipart/form-data">
 							<div class="boxContentLeft col-md-9" data-reactid="10">
 								<div class="white-box row noMargin" data-reactid="11">
 									<div class="col-md-12" data-reactid="12">
@@ -249,59 +249,44 @@
 										<div class="_3wam_fc0n3F8W2D-BvqYNK" data-reactid="20">
 											<div class="be-Hqc5uEkMmHJf3ZA2Rw col-md-3 col-sm-12" data-reactid="21">
 												<div class="T8j5wxsOm0H3gemUZxWlK" data-reactid="22">
-													<img src="https://static.chotot.com/storage/PRIVATE_DASHBOARD_CDN/32ea486819346b666d9e012fea3f5be0.png"
-														class="" data-reactid="23">
-													<div class="_1pmT8qcvx0jh6SDXWZ2jsw" data-reactid="24">
-														<i class="_14Aqs4U4nJSw2OoFWbQwDl" data-reactid="25"></i>
-														<input type="file" multiple="" accept="image/jpeg, image/png"
+													<img  th:src="@{${Custumer.Image}}" id="thumnail" width="300" height="auto">
+
+														<input type="file" name="image" accept="image/jpeg, image/png, image/jpg"
 															data-reactid="26">
 													</div>
-													<table>
-														<tr><br>
-															<td>Email</td>
-														</tr>
-														<td><span sec:authentication="principal.Password" class="fa fa-user"></span>
-														</td>
-														<tr><br>
-															<td>Mật khẩu</td>
-														</tr>
-														<td class="input_field"> <span aria-hidden="true"
-																class="fa fa-lock">
-																<input type="password" id="password"
-																 /></span>
-														</td>
-														<tr><br>
-															<td>Họ Tên</td>
-														</tr>
-														<td><span sec:authentication="name"></span></td>
-														<tr>
-															<td>Địa Chỉ</td>
-														</tr>
-														<td><span sec:authentication="name"></span></td>
-														<tr>
-															<td>Số Điện Thoại</td>
-														</tr>
-														<td><span sec:authentication="name"></span></td>
-														<tr>
-															<td>Ngày Đăng Ký</td>
-														</tr>
-														<td><span sec:authentication="name"></span></td>
-														<tr>
+													<table class="row clearfix">
+														 <div class="input_field"> <span><i aria-hidden="true" class="fa fa-envelope"></i>Email</span>
+           													 <input type="email" th:field="*{email1}" disabled readonly />
+          												</div>	
+														 <div class="input_field"> <span><i aria-hidden="true" class="fa fa-lock"></i>Mật Khẩu</span>
+           													 <input type="text" th:field="*{password1}" placeholder="Password" required />
+          												</div>	
+          												 <div class="input_field"> <span><i aria-hidden="true" class="fa fa-user"></i>Họ tên</span>
+           													 <input type="text" th:field="*{hoten}" placeholder="Name" required />
+          												</div>	
+          												 <div class="input_field"> <span><i aria-hidden="true" class="fa fa-phone"></i>Số Điện Thoại</span>
+           													 <input type="text" th:field="*{sdt1}" placeholder="Phone Number" required />
+          												</div>
+          												<div class="input_field"> <span><i aria-hidden="true" class="fa fa-map"></i>Địa chỉ</span>
+           													 <input type="text" th:field="*{diachi1}" placeholder="Location" required />
+          												</div>	
+          												<div class="input_field"> <span><i aria-hidden="true" class="fa fa-shield"></i>Ngày Đăng Ký</span>
+           													 <input type="text" th:field="*{createtime}" disabled readonly  />
+          												</div>
+														<div class="input_field">
 															<td><a href="#">Tôi muốn xóa tài khoản này!</a></td>
-														</tr>
-														<td colspan="2">
-										<input type="submit" value="Save">
-														</td>
+														</div>
+														<div class="input_field">
+																<button type="submit" th:formaction="@{/profile/update}" formmethod="post" backround="green">Save It</button>
+														</div>
 													</table>
 												</div>
 											</div>
 										</div>
 									</div>
 								</div>
-							</div>
 							</form>
-						</div>
-						
+						</div>		
 					</div>
 				</div>
 			</div>
@@ -393,6 +378,24 @@
 		<script async defer crossorigin="anonymous"
 			src="https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v6.0"></script>
 		<script src="http://media.hot.vn/js/fancybox/format.js?ver=3.2" type="text/javascript"></script>
+		<script type="text/javascript">
+		$(document).ready(function() {
+			$("#imgProfile").change(function() {
+				readUrl(this);
+			});
+		});
+		
+		function readUrl(input) {
+			if (input.files && input.files[0]) {
+				var reader = new FileReader();
+				
+				reader.onload = function(e) {
+					$('#thumnail').attr('src', e.target.result);
+				}
+				reader.readAsDataURL(input.files[0]);
+			}
+		}
+	</script>
 </body>
 
 </html>
