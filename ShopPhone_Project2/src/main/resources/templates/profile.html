@@ -249,26 +249,26 @@
 										<div class="_3wam_fc0n3F8W2D-BvqYNK" data-reactid="20">
 											<div class="be-Hqc5uEkMmHJf3ZA2Rw col-md-3 col-sm-12" data-reactid="21">
 												<div class="T8j5wxsOm0H3gemUZxWlK" data-reactid="22">
-													<img  th:src="@{${custumer.Image}}" id="thumnail" width="300" height="auto">
+													<img  th:src="*{'data:image/png;base64,'+image}" alt=""  id="thumnail" width="300" height="auto"/>
 
-														<input type="file" name="Image" accept="image/jpeg, image/png, image/jpg"
+														<input type="file" name="Imageg" id="imgProfile" accept="image/jpeg, image/png, image/jpg"
 															data-reactid="26">
 													</div>
 													<table class="row clearfix">
 														 <div class="input_field"> <span><i aria-hidden="true" class="fa fa-envelope"></i>Email</span>
-           													 <input type="email" th:field="*{email1}" disabled readonly />
+           													 <input type="email" th:field="*{Email}" disabled readonly />
           												</div>	
 														 <div class="input_field"> <span><i aria-hidden="true" class="fa fa-lock"></i>Mật Khẩu</span>
-           													 <input type="text" th:field="*{password1}" placeholder="Password" required />
+           													 <input type="text" th:field="*{Password}" placeholder="Password" required />
           												</div>	
           												 <div class="input_field"> <span><i aria-hidden="true" class="fa fa-user"></i>Họ tên</span>
-           													 <input type="text" th:field="*{hoten}" placeholder="Name" required />
+           													 <input type="text" th:field="*{Hoten}" placeholder="Name" required />
           												</div>	
           												 <div class="input_field"> <span><i aria-hidden="true" class="fa fa-phone"></i>Số Điện Thoại</span>
-           													 <input type="text" th:field="*{sdt1}" placeholder="Phone Number" required />
+           													 <input type="text" th:field="*{SDT}" placeholder="Phone Number" required />
           												</div>
           												<div class="input_field"> <span><i aria-hidden="true" class="fa fa-map"></i>Địa chỉ</span>
-           													 <input type="text" th:field="*{diachi1}" placeholder="Location" required />
+           													 <input type="text" th:field="*{Diachi}" placeholder="Location" required />
           												</div>	
           												<div class="input_field"> <span><i aria-hidden="true" class="fa fa-shield"></i>Ngày Đăng Ký</span>
            													 <input type="text" th:field="*{createtime}" disabled readonly  />

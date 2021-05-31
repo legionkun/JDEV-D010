@@ -20,6 +20,7 @@ import project.green.shop.auth.EnumProvider;
 public class CustumerService implements UserDetailsService{
 	@Autowired
 	private CustumerRepo cusrepo;
+	
 	@Override
 	@Transactional
 	public UserDetails loadUserByUsername(String email1) throws UsernameNotFoundException {
@@ -29,9 +30,10 @@ public class CustumerService implements UserDetailsService{
 			System.out.println("Ko tìm thấy tài khoản");
 			throw new UsernameNotFoundException(project.green.shop.helper.AppString.usernameNotFound);
 		}
-		System.out.println(" " +user.getEmail1());
+		System.out.println(" " +user.getEmail());
 		return new project.green.shop.security.MyUserDetails(user);
 	}
+	
 	public List<Custumer> AllCustomer() {
 		return cusrepo.findAll();
 	}
@@ -39,39 +41,47 @@ public class CustumerService implements UserDetailsService{
 	public Custumer getByEmail(String email1) {
 		return cusrepo.getByEmail(email1);
 	}
+	
 	public CustumerService() {}
+	
 	public void AddNewCustomer(String email1, String hoten, String diachi1, String sdt1, EnumProvider provider) {
 		BCryptPasswordEncoder encoder=new BCryptPasswordEncoder();
 		Date createtime = new Date();
 		Custumer customer = new Custumer();
-		customer.setSdt1(sdt1);
-		customer.setDiachi1(diachi1);
+		customer.setSDT(sdt1);
+		customer.setDiachi(diachi1);
 		customer.setEnabled(true);
-		customer.setEmail1(email1);
+		customer.setEmail(email1);
 		customer.setHoten(hoten);
 		customer.setCreatetime(createtime);
 		customer.setLasttime(createtime);
 		customer.setAuth_provider(provider);	
-		customer.setPassword1(encoder.encode(("")));
+		customer.setPassword(encoder.encode(("")));
 		cusrepo.save(customer);
 	}
 	
 	public void updateCustomer(Custumer customer, String hoten, String diachi1, String sdt1, EnumProvider provider) {
 
-		customer.setDiachi1(diachi1);
+		customer.setDiachi(diachi1);
 		customer.setHoten(hoten);
 		customer.setLasttime(new Date());
-		customer.setSdt1(sdt1);
+		customer.setSDT(sdt1);
 		cusrepo.save(customer);
 	}
-	public void editCustumer(Custumer cus)
+	public Custumer editCustumer(Custumer custumer)
 	{
+		cusrepo.getByEmail(custumer.getEmail());
 		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-		cus.setDiachi1(cus.getDiachi1());
-		cus.setHoten(cus.getHoten());
-		cus.setSdt1(cus.getSdt1());
-		cus.setPassword1(encoder.encode("")+cus.getPassword1());
-		cusrepo.save(cus);
+		custumer.setImage(custumer.getImage());
+		custumer.setDiachi(custumer.getDiachi());
+		custumer.setHoten(custumer.getHoten());
+		custumer.setSDT(custumer.getSDT());
+		if(custumer.getPassword()!=null)
+		{
+		custumer.setPassword(encoder.encode(custumer.getPassword()));
+		}
+		System.out.println(" pass"+custumer.getPassword());
+		return cusrepo.save(custumer);
 	}
 	
 	//tạo mới tk chưa kích hoạt
@@ -80,7 +90,7 @@ public class CustumerService implements UserDetailsService{
 		Date date = new Date();
 		custumer.setCreatetime(date);
 		custumer.setLasttime(date);
-		custumer.setPassword1(encoder.encode(custumer.getPassword1()));
+		custumer.setPassword(encoder.encode(custumer.getPassword()));
 		custumer.setEnabled(false);
 		String RandomCode = RandomString.make(64);
 		custumer.setVarificationCode(RandomCode);

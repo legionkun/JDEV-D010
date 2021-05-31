@@ -2,7 +2,7 @@ package project.green.shop.controller;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
-import java.security.Principal;
+
 import java.util.Base64;
 
 import javax.mail.MessagingException;
@@ -10,10 +10,7 @@ import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.tomcat.util.http.fileupload.FileUpload;
-import org.apache.tomcat.util.http.fileupload.FileUploadBase;
-import org.apache.tomcat.util.http.fileupload.FileUploadException;
-import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.data.repository.query.Param;
@@ -33,7 +30,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
 
 
 
@@ -45,21 +42,25 @@ import project.green.shop.security.MyUserDetails;
 
 
 @Controller
-public class appcontroller {
+public class AppController {
 	@Autowired 
 	private CustumerService addclient;
+	
 	@Autowired
 	private JavaMailSender MailSendder;
+	
 	@GetMapping("/")
 	public String showIndexView() {
 		
 		return "index";
 	}
+	
 	@GetMapping("/Forgot")
 	public String ShowForGot()
 	{
 		return "forgot";
 	}
+	
 	@RequestMapping("/Login")
 	public String ShowLogin()
 	{
@@ -68,6 +69,7 @@ public class appcontroller {
 	
 	@Autowired
 	private CustumerService cus;
+	
 	@RequestMapping(value="/profile", method = RequestMethod.GET)
 	public String ShowProfile(Model model,@AuthenticationPrincipal MyUserDetails user )
 	{		
@@ -75,33 +77,49 @@ public class appcontroller {
 		model.addAttribute("custumer",cus.getByEmail(u));
 		return "profile";
 	}
+	
 	@PostMapping(value = {"/profile/update"}, consumes = {"multipart/form-data"})
-	public String UpdateProfile(@ModelAttribute("custumer") Custumer user,@RequestParam("Image") MultipartFile multi) throws IOException
+	public String UpdateProfile(Custumer custumer,@AuthenticationPrincipal MyUserDetails user,@RequestParam("Imageg") MultipartFile multi) throws IOException
 	{
-
+			if(!multi.isEmpty())
+			{
 			String filename= org.springframework.util.StringUtils.cleanPath(multi.getOriginalFilename());
 			String encodedString = Base64.getEncoder().encodeToString(filename.getBytes());
-			user.setImage(encodedString);			
-			System.out.println("saveProfile photo path: " + filename + " for user id" + user.getId());
-			String UploadDir= "custumer-photo/" + user.getId();
+			custumer.setImage(encodedString);
+			System.out.println("1111111111111"+encodedString);
+			System.out.println("saveProfile photo path: " + filename + " for user id" + user.getUsername());
+			custumer.setEmail(user.getUsername());
+			custumer.setId(user.getId());
+			custumer.setEnabled(true);
+			Custumer custum = cus.editCustumer(custumer);
+			String UploadDir= "custumer-photo/" + custum.getId();
+			System.out.println("3333333"+custum.getId());
 			System.out.println(multi);
 			try {
 				FileUpLoadHelper.SaveFile(UploadDir, filename, multi);
-			} catch (IOException e) {
-			cus.editCustumer(user);
 			}
+			catch(Exception E) {}
+			}else if(custumer.getImage().isEmpty()) {
+			custumer.setImage(null);
+			cus.editCustumer(custumer);
+			}
+	
+
 		return "redirect:/";		
 	}
+	
 	@RequestMapping("/aboutus")
 	public String showUS() {
 		
 		return "aboutus";
 	}
+	
 	@RequestMapping("/quydinhgiaohang")
 	public String showQD() {
 		
 		return "quydinhgiaohang";
 	}
+	
 	 @RequestMapping(value="/logout", method=RequestMethod.GET)  
 	    public String logoutPage(HttpServletRequest request, HttpServletResponse response) {  
 	        Authentication auth = SecurityContextHolder.getContext().getAuthentication();  
@@ -110,6 +128,7 @@ public class appcontroller {
 	        }  
 	         return "redirect:/";  
 	     }  
+	 
 	@RequestMapping("/register")//Lấy para và gán vào model 
 	public String newProduct(Model model, HttpServletRequest request)
 	{
@@ -117,6 +136,7 @@ public class appcontroller {
 		model.addAttribute("Custumer",us_1);
 		return "register";		
 	}
+	
 	@RequestMapping(value="/save", method=RequestMethod.POST)//tạo acc và gửi mail qua gmail
 	public String saveClient(@ModelAttribute("Custumer")Custumer custumer,HttpServletRequest request) throws MessagingException, UnsupportedEncodingException
 	{
@@ -133,7 +153,7 @@ public class appcontroller {
 		helper.setSubject(mailSubject);
 		helper.setText(mailContent, true);
 		helper.setFrom("webbanhang.shop.vn", senderName);
-		helper.setTo(custumer.getEmail1());
+		helper.setTo(custumer.getEmail());
 		ClassPathResource resoures = new ClassPathResource("/static/images/phoenix.jpg");
 		helper.addInline("Logoimage", resoures);
 		MailSendder.send(message);	
@@ -152,11 +172,13 @@ public class appcontroller {
 		else
 		return "Login";
 	}
+	
 	@GetMapping("/403")
 	public String Error ()
 	{
 		return "403";
 	}
+	
 	@GetMapping("/access-denied")
     public String getAccessDenied() {
         return "/error/accessDenied";

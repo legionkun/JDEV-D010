@@ -19,7 +19,6 @@ public class MyUserDetails  implements UserDetails{
 	 */
 	private static final long serialVersionUID = -8015629406528630839L;
 	private Custumer user;
-
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		List<SimpleGrantedAuthority> authorities = new ArrayList<>();
@@ -37,13 +36,13 @@ public class MyUserDetails  implements UserDetails{
 	@Override
 	public String getPassword() {
 
-		return user.getPassword1();
+		return user.getPassword();
 	}
 
 	@Override
 	public String getUsername() {
 	
-		return user.getEmail1();
+		return user.getEmail();
 	}
 
 	@Override
@@ -79,12 +78,12 @@ public class MyUserDetails  implements UserDetails{
 		this.user.setHoten(hoten);
 	}
 
-	public void setDiachi(String diachi) {
-		this.user.setDiachi1(diachi);
+	public void setDiachi(String Diachi) {
+		this.user.setDiachi(Diachi);
 	}
 
-	public void setSdt(String sdt) {
-		this.user.setSdt1(sdt);
+	public void setSDT(String SDT) {
+		this.user.setSDT(SDT);
 	}
 
 	public void setImage(String image) {
@@ -93,18 +92,30 @@ public class MyUserDetails  implements UserDetails{
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
-	public String getDiaChi() {
-		return user.getDiachi1();
+	public String getDiachi() {
+		return user.getDiachi();
 	}
 
 	public String getSDT() {
-		return user.getSdt1();
+		return user.getSDT();
 	}
 
 	public String getHoten() {
 		return user.getHoten();
 	}
 
+	public String getImage()
+	{
+		return user.getImage();
+	}
+	
+	public String setPassword(String Password)
+	{
+		return this.user.getPassword();
+	}
+	public int getId() {
+		return user.getId();
+	}
 
-
+	
 }

@@ -9,7 +9,7 @@ import project.green.shop.model.Custumer;
 
 public interface CustumerRepo extends JpaRepository<Custumer, Integer>{
 	//Truy cập tài khoản
-	@Query("SELECT u FROM Custumer u WHERE u.email1 = :email1")
+	@Query("SELECT u FROM Custumer u WHERE u.Email = :email1")
 	public Custumer getByEmail(@Param("email1") String email1);
 	
 	//kích hoạt tài khoản
@@ -20,4 +20,6 @@ public interface CustumerRepo extends JpaRepository<Custumer, Integer>{
 	//Truy vấn Veryfication Code
 	@Query("Select u from Custumer u where u.varificationCode= ?1")
 	public Custumer getByVeryfication(String code);
+	
+
 }
