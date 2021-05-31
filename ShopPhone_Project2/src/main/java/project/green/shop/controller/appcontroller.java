@@ -3,6 +3,7 @@ package project.green.shop.controller;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.security.Principal;
+import java.util.Base64;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
@@ -71,27 +72,24 @@ public class appcontroller {
 	public String ShowProfile(Model model,@AuthenticationPrincipal MyUserDetails user )
 	{		
 		String u = user.getUsername();
-		model.addAttribute("Custumer",cus.getByEmail(u));
+		model.addAttribute("custumer",cus.getByEmail(u));
 		return "profile";
 	}
-	@PostMapping("/profile/update")
-	public String UpdateProfile(@ModelAttribute("Custumer") Custumer user,@RequestParam("image") MultipartFile multi,@RequestParam String author) throws IOException
+	@PostMapping(value = {"/profile/update"}, consumes = {"multipart/form-data"})
+	public String UpdateProfile(@ModelAttribute("custumer") Custumer user,@RequestParam("Image") MultipartFile multi) throws IOException
 	{
-		if(!multi.isEmpty())
-		{
+
 			String filename= org.springframework.util.StringUtils.cleanPath(multi.getOriginalFilename());
-			user.setImage(filename);
-			Custumer edit = cus.editCustumer(user);
-			String UploadDir= "custumer-photo/" + edit.getEmail1();
+			String encodedString = Base64.getEncoder().encodeToString(filename.getBytes());
+			user.setImage(encodedString);			
 			System.out.println("saveProfile photo path: " + filename + " for user id" + user.getId());
+			String UploadDir= "custumer-photo/" + user.getId();
 			System.out.println(multi);
-		    System.out.println(author);
-			FileUpLoadHelper.SaveFile(UploadDir, filename, multi);
-		}else if(user.getImage().isEmpty())
-		{
-			user.setImage(null);
+			try {
+				FileUpLoadHelper.SaveFile(UploadDir, filename, multi);
+			} catch (IOException e) {
 			cus.editCustumer(user);
-		}
+			}
 		return "redirect:/";		
 	}
 	@RequestMapping("/aboutus")

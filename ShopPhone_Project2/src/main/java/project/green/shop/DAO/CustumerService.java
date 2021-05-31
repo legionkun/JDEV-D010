@@ -64,15 +64,14 @@ public class CustumerService implements UserDetailsService{
 		customer.setSdt1(sdt1);
 		cusrepo.save(customer);
 	}
-	public Custumer editCustumer(Custumer cus)
+	public void editCustumer(Custumer cus)
 	{
-		 BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-		cus.setImage(cus.getImage());
+		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 		cus.setDiachi1(cus.getDiachi1());
 		cus.setHoten(cus.getHoten());
 		cus.setSdt1(cus.getSdt1());
 		cus.setPassword1(encoder.encode("")+cus.getPassword1());
-		return cusrepo.save(cus);
+		cusrepo.save(cus);
 	}
 	
 	//tạo mới tk chưa kích hoạt
