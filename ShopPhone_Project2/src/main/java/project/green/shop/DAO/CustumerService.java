@@ -71,17 +71,17 @@ public class CustumerService implements UserDetailsService{
 	public Custumer editCustumer(Custumer custumer)
 	{
 		cusrepo.getByEmail(custumer.getEmail());
-		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+		//BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 		custumer.setImage(custumer.getImage());
 		custumer.setDiachi(custumer.getDiachi());
 		custumer.setHoten(custumer.getHoten());
 		custumer.setSDT(custumer.getSDT());
-		if(custumer.getPassword()!=null)
-		{
-		custumer.setPassword(encoder.encode(custumer.getPassword()));
-		}
-		System.out.println(" pass"+custumer.getPassword());
-		return cusrepo.save(custumer);
+		//if(custumer.getPassword()==null)
+		//{
+		//custumer.setPassword(encoder.encode(custumer.getPassword()));
+		//}
+		System.out.println(" IMAGE!!!!!!"+custumer.getImage());
+		return cusrepo.saveAndFlush(custumer);
 	}
 	
 	//tạo mới tk chưa kích hoạt
@@ -117,4 +117,58 @@ public class CustumerService implements UserDetailsService{
 		
 	}
 
+	@Transactional
+	public boolean CheckEmail(String EmailABC)
+	{
+		Custumer user = cusrepo.getByEmail(EmailABC);
+				if(user !=null)
+				{
+					return false;
+				}
+				else return true;	
+	}
+	
+	//Tìm kiếm user và gán token(random string)
+	public void getPW(String email, String token)
+	{
+		Custumer user = cusrepo.getByEmail(email);
+		if(user != null)
+		{
+			user.setTokenPassword(token);
+			cusrepo.save(user);
+		}else
+			System.out.println("Không tìm thấy USER!");
+	}
+	
+	//kích hoạt mã truy cập vào change pass
+	@Transactional
+	public boolean activeChangePass(String token)
+	{
+		Custumer user = cusrepo.getByTokenPass(token);
+		if(user==null)
+				{
+			System.out.println("ERROR :!!!!!!" +token);
+			System.out.println("Looking  "+user);
+			return false;
+				}
+		else 
+		{
+			 return true;
+		}
+		
+	}
+	
+	public Custumer GetBYTOKEN(String token)
+	{
+		return cusrepo.getByTokenPass(token);
+		
+	}
+	//change pass
+	public void ChangePass(Custumer custumer,String Newpass)
+	{
+		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+		custumer.setPassword(encoder.encode(Newpass));
+		custumer.setTokenPassword(null);
+		cusrepo.save(custumer);
+	}
 }

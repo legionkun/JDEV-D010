@@ -9,6 +9,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import project.green.shop.model.Custumer;
 import project.green.shop.model.Role;
+import project.green.shop.model.User;
 
 
 
@@ -18,31 +19,35 @@ public class MyUserDetails  implements UserDetails{
 	 * 
 	 */
 	private static final long serialVersionUID = -8015629406528630839L;
-	private Custumer user;
+	private Custumer custumer;
+	private User user;
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		List<SimpleGrantedAuthority> authorities = new ArrayList<>();
+		if(user != null) {
 		for(Role role : user.getRoles()) {
 			authorities.add(new SimpleGrantedAuthority(role.getRole_name()));
+		}}else {
+		authorities.add(new SimpleGrantedAuthority("CUSTUMER"));
 		}
 		return authorities;
 	}
 	public MyUserDetails() {}
 	
-	public MyUserDetails(Custumer user) {
+	public MyUserDetails(Custumer custumer) {
 		super();
-		this.user = user;
+		this.custumer = custumer;
 	}
 	@Override
 	public String getPassword() {
 
-		return user.getPassword();
+		return custumer.getPassword();
 	}
 
 	@Override
 	public String getUsername() {
 	
-		return user.getEmail();
+		return custumer.getEmail();
 	}
 
 	@Override
@@ -66,55 +71,57 @@ public class MyUserDetails  implements UserDetails{
 	@Override
 	public boolean isEnabled() {
 		
-		return user.isEnabled();
+		return custumer.isEnabled();
 	}
-	public Custumer getUser() {
-		return user;
+	
+	public Custumer getCustumer() {
+		return custumer;
 	}
-	public void setUser(Custumer user) {
-		this.user = user;
+	public void setCustumer(Custumer custumer) {
+		this.custumer = custumer;
 	}
+	
 	public void setHoten(String hoten) {
-		this.user.setHoten(hoten);
+		this.custumer.setHoten(hoten);
 	}
 
 	public void setDiachi(String Diachi) {
-		this.user.setDiachi(Diachi);
+		this.custumer.setDiachi(Diachi);
 	}
 
 	public void setSDT(String SDT) {
-		this.user.setSDT(SDT);
+		this.custumer.setSDT(SDT);
 	}
 
-	public void setImage(String image) {
-		this.user.setImage(image);
+	public void setImage(byte[] image) {
+		this.custumer.setImage(image);
 	}
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
 	public String getDiachi() {
-		return user.getDiachi();
+		return custumer.getDiachi();
 	}
 
 	public String getSDT() {
-		return user.getSDT();
+		return custumer.getSDT();
 	}
 
 	public String getHoten() {
-		return user.getHoten();
+		return custumer.getHoten();
 	}
 
 	public String getImage()
 	{
-		return user.getImage();
+		return custumer.getBase64Image();
 	}
 	
 	public String setPassword(String Password)
 	{
-		return this.user.getPassword();
+		return this.custumer.getPassword();
 	}
 	public int getId() {
-		return user.getId();
+		return custumer.getId();
 	}
 
 	

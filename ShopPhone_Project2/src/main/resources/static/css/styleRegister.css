@@ -12,6 +12,10 @@ body {
   height: 0;
 }
 
+.error{
+	 background-color: red;
+}
+
 .form_wrapper {
   background: #fff;
   width: 400px;

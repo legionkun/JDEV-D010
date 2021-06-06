@@ -35,7 +35,8 @@
 									<ul class="nav">
 										<li><a th:href="@{/aboutus}">Về Chúng tôi</a></li>
 										<li sec:authorize="isAnonymous()"><a id="lo-gin" th:href="@{/Login}" >Đăng Nhập</a></li>
-										<li sec:authorize="isAuthenticated()"><a th:href="@{/profile}" sec:authentication="name">Đăng Nhập</a> <a href="profile" sec:authentication="principal.authorities"></a></li> 
+										<li sec:authorize="isAuthenticated()"><a th:href="@{/profile}" sec:authentication="name">Đăng Nhập</a>
+										 <a href="profile" sec:authentication="principal.authorities"></a></li> 
 										<li sec:authorize="isAnonymous()">	<a th:href="@{/register}">Đăng Ký</a></li>
 										<li sec:authorize="isAuthenticated()"><a th:href="@{/logout}">Logout</a></li> 
 										<li><a th:href="@{/quydinhgiaohang}">				Quy Định giao hàng</a></li>

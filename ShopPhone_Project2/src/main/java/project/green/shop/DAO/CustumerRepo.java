@@ -21,5 +21,7 @@ public interface CustumerRepo extends JpaRepository<Custumer, Integer>{
 	@Query("Select u from Custumer u where u.varificationCode= ?1")
 	public Custumer getByVeryfication(String code);
 	
-
+	//find By pass
+	@Query("Select u from Custumer u where u.TokenPassword = ?1")
+	public Custumer getByTokenPass(String token);
 }

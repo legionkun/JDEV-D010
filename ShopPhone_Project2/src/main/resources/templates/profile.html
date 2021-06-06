@@ -14,7 +14,6 @@
 	<link rel="stylesheet" href="css/scrolling.css">
 	<link rel="stylesheet" href="js/fancy.js">
 	<link rel="stylesheet" href="css/responsive.css">
-	<link rel="stylesheet" href="css/styleRegister.css">
 	<link rel="stylesheet" href="libs/bootstrap/js/jquery.fancybox.min.js">
 	<script src="https://cdn.jsdelivr.net/npm/jquery@3.4.1/dist/jquery.min.js"></script>
 
@@ -37,10 +36,8 @@
 								<div class="top-menu">
 									<ul>
 										<li><a th:href="@{/aboutus}">Về Chúng tôi</a></li>
-										<li sec:authorize="isAnonymous()"><a id="lo-gin" th:href="@{/Login}">Đăng
-												Nhập</a></li>
-										<li sec:authorize="isAuthenticated()"><a href="profile"
-												sec:authentication="name">Đăng Nhập</a></li>
+										<li sec:authorize="isAnonymous()"><a id="lo-gin" th:href="@{/Login}">Đăng Nhập</a></li>
+										<li sec:authorize="isAuthenticated()"><a href="profile" sec:authentication="name">Đăng Nhập</a></li>
 										<li sec:authorize="isAnonymous()"><a th:href="@{/register}">Đăng Ký</a></li>
 										<li sec:authorize="isAuthenticated()"><a th:href="@{/logout}">Log out</a></li>
 										<li><a th:href="@{/quydinhgiaohang}">Quy Định giao hàng</a></li>
@@ -249,8 +246,7 @@
 										<div class="_3wam_fc0n3F8W2D-BvqYNK" data-reactid="20">
 											<div class="be-Hqc5uEkMmHJf3ZA2Rw col-md-3 col-sm-12" data-reactid="21">
 												<div class="T8j5wxsOm0H3gemUZxWlK" data-reactid="22">
-													<img  th:src="*{'data:image/png;base64,'+image}" alt=""  id="thumnail" width="300" height="auto"/>
-
+													<img th:src= "${'data:image/jpg;charset=utf-8;base64,' + custumer.Base64Image}" alt="your-image"  id="thumnail" width="300" height="auto" />
 														<input type="file" name="Imageg" id="imgProfile" accept="image/jpeg, image/png, image/jpg"
 															data-reactid="26">
 													</div>
@@ -259,7 +255,7 @@
            													 <input type="email" th:field="*{Email}" disabled readonly />
           												</div>	
 														 <div class="input_field"> <span><i aria-hidden="true" class="fa fa-lock"></i>Mật Khẩu</span>
-           													 <input type="text" th:field="*{Password}" placeholder="Password" required />
+           													 <input type="password" id="password" th:field="${custumer.Password}" placeholder="*****************" disabled readonly  />
           												</div>	
           												 <div class="input_field"> <span><i aria-hidden="true" class="fa fa-user"></i>Họ tên</span>
            													 <input type="text" th:field="*{Hoten}" placeholder="Name" required />
@@ -274,14 +270,18 @@
            													 <input type="text" th:field="*{createtime}" disabled readonly  />
           												</div>
 														<div class="input_field">
-															<td><a href="#">Tôi muốn xóa tài khoản này!</a></td>
+															<td><a href="#">Chấm Dứt Tài Khoản</a></td>
 														</div>
-														<div class="input_field">
-																<button type="submit" th:formaction="@{/profile/update}" formmethod="post" backround="green">Save It</button>
-														</div>
+																						
+														<div style="width: 100%; float:left">
+																<button type="submit" th:formaction="@{/profile/update}"  formmethod="post" >Save It</button>																													
+														</div> 
 													</table>
 												</div>
 											</div>
+											<div >
+											<i th:if="${message}" th:text="${message}" th:class="${'alert ' + alertClass}"/> 	
+										</div>	
 										</div>
 									</div>
 								</div>
@@ -396,6 +396,24 @@
 			}
 		}
 	</script>
+	<script>
+    $('#password').password({
+        closestSelector: '.form-group',
+        shortPass: 'The password is too short',
+        badPass: 'Weak; try combining letters & numbers',
+        goodPass: 'Medium; try using special characters',
+        strongPass: 'Strong password',
+        containsField: 'The password contains your username',
+        enterPass: 'Type your password',
+        showPercent: false,
+        showText: true, // shows the text tips
+        animate: true, // whether or not to animate the progress bar on input blur/focus
+        animateSpeed: 'fast', // the above animation speed
+        field: false, // select the match field (selector or jQuery instance) for better password checks
+        fieldPartialMatch: true, // whether to check for partials in field
+        minimumLength: 4 // minimum password length (below this threshold, the score is 0)
+    });
+</script>
 </body>
 
 </html>

@@ -3,22 +3,20 @@ package project.green.shop.model;
 
 
 import java.io.Serializable;
+import java.util.Base64;
 import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
 
-import javax.persistence.CascadeType;
+
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.FetchType;
+
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
+
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
@@ -46,8 +44,8 @@ public class Custumer implements Serializable{
 		@Column(name="diachi1")
 		private String Diachi;
 		
-		@Column(name="image")
-		private String Image;
+		@Column(name="image",columnDefinition = "LONGBLOB")
+		private byte[] Image;
 		
 		@Column(name="sdt1")
 		private String SDT;
@@ -59,15 +57,19 @@ public class Custumer implements Serializable{
 		
 		private boolean enabled;
 		
-		@Enumerated(EnumType.STRING)
-		private project.green.shop.auth.EnumProvider  auth_provider;
-		@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-		@JoinTable(name = "user_role", 
-			 joinColumns = @JoinColumn (name = "id"), 
-			 inverseJoinColumns = @JoinColumn (name = "idrole"))
-		private Set<Role> roles = new HashSet<>();
+		@Column(name="TokenPW")
+		private String TokenPassword;
 		
-		@Column(name="verification_code", updatable=false)
+		@Enumerated(EnumType.STRING)
+		@Column(updatable=false)
+		private project.green.shop.auth.EnumProvider  auth_provider;
+		//@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+		//@JoinTable(name = "user_role", 
+		//	 joinColumns = @JoinColumn (name = "id"), 
+		//	 inverseJoinColumns = @JoinColumn (name = "idrole"))
+		//private Set<Role> roles = new HashSet<>();
+		
+		@Column(name="verification_code")
 		private String varificationCode;
 		public Custumer() {	}
 		
@@ -81,12 +83,17 @@ public class Custumer implements Serializable{
 			}
 			return "/custumer-photo/" + this.Id + "/" + this.Image;
 		}
-		 public String getImage()
-		 {
-			 return Image;
-		 }
-		 
-		public void setImage(String image) {
+		
+		@Transient
+		public String getBase64Image() {
+		    return  Base64.getEncoder().encodeToString(this.Image);
+		}
+
+		public byte[] getImage() {
+			return Image;
+		}
+
+		public void setImage(byte[] image) {
 			Image = image;
 		}
 
@@ -178,14 +185,16 @@ public class Custumer implements Serializable{
 			this.auth_provider = auth_provider;
 		}
 
-		public Set<Role> getRoles() {
-			return roles;
+		public String getTokenPassword() {
+			return TokenPassword;
 		}
 
-		public void setRoles(Set<Role> roles) {
-			this.roles = roles;
+		public void setTokenPassword(String tokenPassword) {
+			TokenPassword = tokenPassword;
 		}
 
+	
+		
 
 		
 		

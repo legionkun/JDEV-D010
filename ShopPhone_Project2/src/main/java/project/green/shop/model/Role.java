@@ -21,7 +21,7 @@ public class Role implements Serializable{
 		@GeneratedValue(strategy = GenerationType.IDENTITY)
 		private int idrole;
 		@ManyToMany(mappedBy = "roles")
-	    private Set<Custumer> custumer;
+	    private Set<User> user;
 		public int getIdrole() {
 			return idrole;
 		}
@@ -39,17 +39,17 @@ public class Role implements Serializable{
 		}
 		
 		public  Role() {}
-		public Set<Custumer> getCustumer() {
-			return custumer;
+		public Set<User> getuser() {
+			return user;
 		}
-		public void setCustumer(Set<Custumer> custumer) {
-			this.custumer = custumer;
+		public void setCustumer(Set<User> user) {
+			this.user = user;
 		}
-		public Role(String role_name, int idrole, Set<Custumer> custumer) {
+		public Role(String role_name, int idrole, Set<User> user) {
 			super();
 			this.role_name = role_name;
 			this.idrole = idrole;
-			this.custumer = custumer;
+			this.user = user;
 		}
 		
 }

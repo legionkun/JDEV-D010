@@ -60,7 +60,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	private OAuth2LoginSuccess success;
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http.authorizeRequests().antMatchers("/","/verify","/profile/update","/access-denied","/403","/oauth2/**","/css/**","/images/**","/js/**","/lib/**","/aboutus","/Login","/register","/quydinhgiaohang","/forgot","/save","Register").permitAll()
+		http.authorizeRequests().antMatchers("/","/verify","/profile/update","/access-denied","/403","/404","/500","/oauth2/**","/css/**","/images/**","/js/**","/lib/**","/aboutus","/Login","/register","/quydinhgiaohang","/Login/Error","/reset_password", "/changepass","/forgot","/forgot/getpass","/save","Register").permitAll()
 		.anyRequest().authenticated()
 		.and().formLogin().loginPage("/Login").permitAll()
 		.usernameParameter("email1")
@@ -68,7 +68,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		.defaultSuccessUrl("/")
 		.loginProcessingUrl("/dologin")	
 		.successHandler(new project.green.shop.handle.OnAuthenticationSuccessHandler())
-		.failureHandler(new project.green.shop.handle.OnAuthenticationFailueHandler())
+		.failureUrl("/Login/Error")
 		.and().exceptionHandling().accessDeniedHandler(accessDeniedHandler())
 		.and().csrf().disable().logout().logoutSuccessUrl("/")
 		.permitAll()
