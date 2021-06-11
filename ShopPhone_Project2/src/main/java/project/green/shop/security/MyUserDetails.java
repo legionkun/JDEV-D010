@@ -81,24 +81,7 @@ public class MyUserDetails  implements UserDetails{
 		this.custumer = custumer;
 	}
 	
-	public void setHoten(String hoten) {
-		this.custumer.setHoten(hoten);
-	}
 
-	public void setDiachi(String Diachi) {
-		this.custumer.setDiachi(Diachi);
-	}
-
-	public void setSDT(String SDT) {
-		this.custumer.setSDT(SDT);
-	}
-
-	public void setImage(byte[] image) {
-		this.custumer.setImage(image);
-	}
-	public static long getSerialversionuid() {
-		return serialVersionUID;
-	}
 	public String getDiachi() {
 		return custumer.getDiachi();
 	}
@@ -113,13 +96,9 @@ public class MyUserDetails  implements UserDetails{
 
 	public String getImage()
 	{
-		return custumer.getBase64Image();
+		return custumer.getImagePath();
 	}
 	
-	public String setPassword(String Password)
-	{
-		return this.custumer.getPassword();
-	}
 	public int getId() {
 		return custumer.getId();
 	}

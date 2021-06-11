@@ -80,8 +80,8 @@ public class CustumerService implements UserDetailsService{
 		//{
 		//custumer.setPassword(encoder.encode(custumer.getPassword()));
 		//}
-		System.out.println(" IMAGE!!!!!!"+custumer.getImage());
-		return cusrepo.saveAndFlush(custumer);
+		System.out.println(" IMAGE BYTE Service"+custumer.getImage());
+		return cusrepo.save(custumer);
 	}
 	
 	//tạo mới tk chưa kích hoạt

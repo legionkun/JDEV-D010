@@ -3,7 +3,7 @@ package project.green.shop.controller;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
-
+import java.util.List;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
+import org.springframework.data.domain.Page;
 import org.springframework.data.repository.query.Param;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
@@ -23,6 +24,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -32,14 +34,16 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import net.bytebuddy.utility.RandomString;
 import project.green.shop.DAO.CustumerService;
+import project.green.shop.DAO.ProductService;
 import project.green.shop.handle.Utility;
 import project.green.shop.helper.FileUpLoadHelper;
 import project.green.shop.model.Custumer;
+import project.green.shop.model.Product;
 import project.green.shop.security.MyUserDetails;
 
 
 @Controller
-public class AppController {
+public class ClientController {
 	@Autowired 
 	private CustumerService addclient;
 	
@@ -113,8 +117,8 @@ public class AppController {
 	{		
 		String u = user.getUsername();
 		model.addAttribute("custumer",cus.getByEmail(u));
-		model.addAttribute("Base64Image", user.getImage());
-		System.out.println(" Image on Detail " + user.getImage());
+		//model.addAttribute("Base64Image", user.getImage());
+		System.out.println(" Image on when showing by STRING" + user.getImage());
 		return "profile";
 	}
 	
@@ -144,12 +148,14 @@ public class AppController {
 			catch(Exception E) {}
 			
 			}else if(multi.isEmpty()||multi ==null) {
-			custumer.setImage(user.getImage().getBytes());
+			custumer.setImage(null);
 			custumer.setId(user.getId());
 			custumer.setEmail(user.getUsername());
 			custumer.setEnabled(true);
 			custumer.setPassword(user.getPassword());
-			System.out.println(" IMAGE CONTROLLER "+user.getImage());		
+			//System.out.println(" IMAGE setter default String "+user.getImage());
+			//System.out.println(" IMAGE setter default BYTE "+user.getImage().getBytes());		
+
 		    cus.editCustumer(custumer);
 			}
 		return "redirect:/profile";		
@@ -264,5 +270,38 @@ public class AppController {
     public String getAccessDenied() {
         return "/error/accessDenied";
     }
+	
+	@Autowired
+	private ProductService pro;
+	@GetMapping("/product")
+	public String showProduct(Model model) {
+		return AllProduct(model, 1, null, null);
+	}
+	
+	@GetMapping("/product/{pagenumber}")
+	public String AllProduct(Model model,@PathVariable("pagenumber") int currentpage,@Param("sortBy") String sortBy, 
+			 @Param("sortDirection") String sortDirection)
+	{
+		String direction = "asc";
+		if (sortDirection != null && sortDirection.equals("asc")) {
+			direction = "desc";
+		}
+		
+		if (sortBy == null) {
+			sortBy = "price";
+		}
+		Page<Product> page = pro.getAllProduct(currentpage, sortBy, direction);
+		int totalitem = page.getNumberOfElements();
+		int totalpage = page.getTotalPages();
+		List<Product> list = page.getContent();
+		model.addAttribute("currentpage", currentpage);
+		model.addAttribute("totalitem",totalitem);
+		model.addAttribute("totalpage",totalpage);
+		model.addAttribute("listproduct",list);
+		model.addAttribute("direction", direction);
+		model.addAttribute("sortBy", sortBy);
+		System.out.println("sortBy: " + sortBy  + " ==  " + "sortDirection");
+		return "product";	
+	}
 	
 }

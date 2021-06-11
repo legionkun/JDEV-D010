@@ -1,25 +1,22 @@
-
 <!DOCTYPE html>
 <html lang="vi" xmlns:th="http://www.thymeleaf.org"
 				xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
-	<head>
+	<head >
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<title>Website bán hàng đơn giản</title>
 		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,500,500i">
-		<link rel="stylesheet" href="libs/bootstrap/css/bootstrap.min.css">
-		<link rel="stylesheet" href="libs/font-awesome/css/font-awesome.min.css">
-		<link rel="stylesheet" href="css/main.css">
+		<link rel="stylesheet" type="text/css" href="libs/bootstrap/css/bootstrap.min.css">
+		<link rel="stylesheet" type="text/css" href="libs/font-awesome/css/font-awesome.min.css"> 
+		<link rel="stylesheet" type="text/css"  href ="css/main.css">
+		<link rel="stylesheet" type="text/css"  href ="css/scrollHeader.css">
+		<link rel="stylesheet" type="text/css" href="css/responsive.css">
 		<link rel="stylesheet" href="css/scrolling.css">
-		<link rel="stylesheet" href="js/fancy.js">
-		<link rel="stylesheet" href="css/responsive.css">
-		<link rel="stylesheet" href="libs/bootstrap/js/jquery.fancybox.min.js">
-		<script src="https://cdn.jsdelivr.net/npm/jquery@3.4.1/dist/jquery.min.js"></script>
-
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
-<script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
-		<link rel="stylesheet" href="http://media.hot.vn/js/fancybox/format.css?ver=3.2" type="text/css" />
+	<	<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+          <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.css" rel="stylesheet" type="text/css" />
+		  <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
 	</head>
 	<body>
 		<div id="wallpaper" class="relative">
@@ -38,7 +35,7 @@
 										<li sec:authorize="isAnonymous()"><a id="lo-gin" th:href="@{/Login}" >Đăng Nhập</a></li>
 										<li sec:authorize="isAuthenticated()"><a href="profile" sec:authentication="name">Đăng Nhập</a></li> 
 										<li sec:authorize="isAnonymous()"><a th:href="@{/register}">Đăng Ký</a></li>
-										<li sec:authorize="isAuthenticated()"><a th:href="@{/Logout}">Log out</a></li> 
+										<li sec:authorize="isAuthenticated()"><a th:href="@{/logout}">Log out</a></li> 
 										<li><a th:href="@{/quydinhgiaohang}">Quy Định giao hàng</a></li>
 									</ul>
 								</div>
@@ -93,7 +90,7 @@
 					<div class="container">
 						<div id="nav-menu">
 							<ul>
-								<li class="current-menu-item"><a href="#">Trang chủ</a></li>
+								<li class="current-menu-item"><a href="/">Trang chủ</a></li>
 								<li><a href="#">Giới thiệu</a></li>
 								<li>
 									<a href="#">Sản phẩm</a>
