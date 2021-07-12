@@ -10,17 +10,8 @@ import project.green.shop.model.ImagesProduct;
 import project.green.shop.model.Product;
 
 
-public interface ProductsRepo extends JpaRepository<Product, Integer>{
-@Query("Select u from Product u where u.product_code = :id ")
-public Product getByProductCode(@Param("id")Integer id);
+public interface ProductsRepo2 extends JpaRepository<ImagesProduct, Integer>{
 
 @Query("Select u from ImagesProduct u where u.product_code = ?1")
 public List<ImagesProduct> getImageList(Integer id);
-
-@Query("Select u from Product u where u.new_product= 1")
-public List<Product> getNewProduct();
-
-@Query("Select u from Product u where u.Id=?1")
-public Product getById(Integer id);
-
 }

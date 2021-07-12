@@ -19,23 +19,25 @@
 		  <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
 	</head>
 	<body>
-		<div id="wallpaper" class="relative">
-		<div class="fixed">
+		<div id="wallpaper"class="relative">
+			<div class="fixed">
 			<header class="fixcolor">
-				<div class="top">
+				<div  class="top" >
 					<div class="container">
 						<div class="row">
 							<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
 								<p>Chào mừng đến với shop bán hàng!</p>
 							</div>							
 							<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+							<span class="menu"></span>
 								<div class="top-menu">
-									<ul>
-										<li><a th:href="@{/aboutus}">Về Chúng tôi</a></li>
+									<ul class="nav">
+										<li sec:authorize="isAuthenticated()"><a th:href="@{/aboutus}">Đơn Hàng của tôi</a></li>
 										<li sec:authorize="isAnonymous()"><a id="lo-gin" th:href="@{/Login}" >Đăng Nhập</a></li>
-										<li sec:authorize="isAuthenticated()"><a href="profile" sec:authentication="name">Đăng Nhập</a></li> 
-										<li sec:authorize="isAnonymous()"><a th:href="@{/register}">Đăng Ký</a></li>
-										<li sec:authorize="isAuthenticated()"><a th:href="@{/logout}">Log out</a></li> 
+										<li sec:authorize="isAuthenticated()"><a th:href="@{/profile}" sec:authentication="name">Đăng Nhập</a></li> 
+										 <!-- <a href="profile" sec:authentication="principal.authorities"></a> --> 
+										<li sec:authorize="isAnonymous()">	<a th:href="@{/register}">Đăng Ký</a></li>
+										<li sec:authorize="isAuthenticated()"><a th:href="@{/logout}">Thoát</a></li> 
 										<li><a th:href="@{/quydinhgiaohang}">Quy Định giao hàng</a></li>
 									</ul>
 								</div>
@@ -48,7 +50,7 @@
 						<div class="row">
 							<div class="col-6 col-xs-6 col-sm-6 col-md-3 col-lg-3 order-md-0 order-0">
 								<div class="logo">
-									<a href="#"><img src="images/logo.png "alt=""></a>
+									<a href="#"><img th:src="@{images/logo.png} "alt=""></a>
 									<h1>Website bán hàng</h1>
 								</div>
 							</div>
@@ -64,7 +66,7 @@
 										</select>
 										<div class="input-seach">
 											<input type="text" name="s" id="" class="form-control">
-											<button type="submit" class="btn-search-pro"><i class="fa fa-search"></i></button>
+									<button type="submit" class="btn-search-pro"><i class="fa fa-search"></i></button>
 										</div>
 										<div class="clear"></div>
 									</form>
@@ -74,7 +76,7 @@
 								<a href="#" class="icon-cart">
 									<div class="icon">
 										<i class="fa fa-shopping-cart" aria-hidden="true"></i>
-										<span>3</span>
+										<span></span>
 									</div>
 									<div class="info-cart">
 										<p>Giỏ hàng</p>
@@ -90,20 +92,14 @@
 					<div class="container">
 						<div id="nav-menu">
 							<ul>
-								<li class="current-menu-item"><a href="/">Trang chủ</a></li>
+								<li class="current-menu-item"><a href="index" th:href="@{/}"> Trang chủ</a></li>
 								<li><a href="#">Giới thiệu</a></li>
 								<li>
 									<a href="#">Sản phẩm</a>
 									<ul>
-										<li><a href="#">Điện thoại</a></li>
-										<li><a href="#">Máy tính bảng</a></li>
-										<li><a href="#">Laptop</a></li>
-										<li><a href="#">Sản phẩm khác</a></li>
+										<li><a href="/product">Điện thoại</a></li>
 									</ul>
 								</li>
-								<li><a href="#">Tin tức</a></li>
-								<li><a href="#">Tuyển dụng</a></li>
-								<li><a href="#">Liên hệ</a></li>
 							</ul>
 							<div class="clear"></div>
 						</div>

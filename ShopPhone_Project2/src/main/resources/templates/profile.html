@@ -230,7 +230,7 @@
 							</div>
 						</div>
 						<div class="col-xs-12 col-sm-12 col-md-12 col-lg-9 order-lg-1 order-0">
-						<form th:action="@{/profile/update}" method="post"th:object="${custumer}" enctype="multipart/form-data">
+						<form th:action="@{/profile/update}" method="post"th:object="${custum}" enctype="multipart/form-data">
 							<div class="boxContentLeft col-md-9" data-reactid="10">
 								<div class="white-box row noMargin" data-reactid="11">
 									<div class="col-md-12" data-reactid="12">
@@ -246,10 +246,9 @@
 										<div class="_3wam_fc0n3F8W2D-BvqYNK" data-reactid="20">
 											<div class="be-Hqc5uEkMmHJf3ZA2Rw col-md-3 col-sm-12" data-reactid="21">
 												<div class="T8j5wxsOm0H3gemUZxWlK" data-reactid="22">
-												<-- @{'data:image/jpg;charset=utf-8;base64,' ${custumer.ImagePath}} -->
-													<img src="#" alt="your-image"  id="thumnail" width="300" height="auto" />
-														<input type="file" name="Imageg" id="imgProfile" accept="image/jpeg, image/png, image/jpg"
-															data-reactid="26">
+													<img src= "#" alt="your-image"  id="thumnail" width="300" height="auto" />
+										<input type="file" name="Imageg" id="imgProfile" accept="image/jpeg, image/png, image/jpg"
+										data-reactid="26">
 													</div>
 													<table class="row clearfix">
 														 <div class="input_field"> <span><i aria-hidden="true" class="fa fa-envelope"></i>Email</span>

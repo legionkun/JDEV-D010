@@ -35,7 +35,7 @@ public class Product implements Serializable{
 		@Column(name="name_")
 		private String name_product;
 		
-		@Column(name="description_")
+		@Column(name="description")
 		private String Description;
 		
 		@Column(name="image")
@@ -50,18 +50,46 @@ public class Product implements Serializable{
 		private double price;
 		private double price_sell;
 		private int quantity;
+		private String keyword;
+		private int product_code;
+		private String more_details;
+		
+		public String getMore_details() {
+			return more_details;
+		}
 
-		@OneToMany(targetEntity=Descriptions.class, mappedBy="Id",cascade=CascadeType.ALL, fetch = FetchType.EAGER)
-	    private Set<Descriptions> des =new HashSet<>();
-		@OneToMany(targetEntity=ImagesProduct.class, mappedBy="Id",cascade=CascadeType.ALL, fetch = FetchType.EAGER)
+		public void setMore_details(String more_details) {
+			this.more_details = more_details;
+		}
+
+		public int getProduct_code() {
+			return product_code;
+		}
+
+		public void setProduct_code(int product_code) {
+			this.product_code = product_code;
+		}
+
+		public String getKeyword() {
+			return keyword;
+		}
+
+		public void setKeyword(String keyword) {
+			this.keyword = keyword;
+		}
+
+		@OneToMany(targetEntity=ImagesProduct.class, mappedBy="Id",cascade=CascadeType.ALL, fetch = FetchType.LAZY)
 	    private Set<ImagesProduct> ima= new HashSet<>();
 		
-		@ManyToOne 
-	    @JoinColumn(name = "id_manu", insertable = false, updatable = false)
-		private Theloai theloai;
+		@OneToMany(targetEntity=CartItem.class, mappedBy="Id",cascade=CascadeType.ALL, fetch = FetchType.LAZY)
+	    private Set<CartItem> cartitem= new HashSet<>();
 		
 		@ManyToOne 
 	    @JoinColumn(name = "id_theloai", insertable = false, updatable = false)
+		private Theloai theloai;
+		
+		@ManyToOne 
+	    @JoinColumn(name = "id_manu", insertable = false, updatable = false)
 		private Manufact manu;
 		
 		public int getId() {
@@ -160,13 +188,6 @@ public class Product implements Serializable{
 			return serialVersionUID;
 		}
 		
-		public Set<Descriptions> getDes() {
-			return des;
-		}
-
-		public void setDes(Set<Descriptions> des) {
-			this.des = des;
-		}
 
 		public Set<ImagesProduct> getIma() {
 			return ima;
@@ -194,13 +215,31 @@ public class Product implements Serializable{
 			this.manu = manu;
 		}
 
+		public Set<CartItem> getCartitem() {
+			return cartitem;
+		}
+
+		public void setCartitem(Set<CartItem> cartitem) {
+			this.cartitem = cartitem;
+		}
+
 		@Transient
 		public String getImageProduct() {
 			if (Id == 0 && this.Image == null) {
 				return null;
 			}
-			return "/image-products/" + this.Id + "/" + this.Image;
+			return "http://localhost:9090/images" + "/" + this.Image;
 		}
 		
-		
+		@Transient
+		public String getImagesProduct() {
+			if (Id == 0 && this.Image == null) {
+				System.out.println(" Null ");
+				return null;
+			}
+			System.out.println("model  "+Id );
+			System.out.println("model  "+Image );
+			return "http://localhost:9090/image-products/"+this.product_code + "/" + this.Image;
+		}
+				
 }

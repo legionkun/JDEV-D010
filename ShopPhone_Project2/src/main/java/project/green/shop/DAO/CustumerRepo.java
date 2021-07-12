@@ -24,4 +24,7 @@ public interface CustumerRepo extends JpaRepository<Custumer, Integer>{
 	//find By pass
 	@Query("Select u from Custumer u where u.TokenPassword = ?1")
 	public Custumer getByTokenPass(String token);
+	
+	@Query("Select u from Custumer u where u.Id=?1")
+	public Custumer getById(Integer id);
 }

@@ -2,8 +2,7 @@
 <html lang="vi" xmlns:th="http://www.thymeleaf.org"
 				xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 	<head>
-		<div th:replace="fragments :: myheader">
-  </div>
+			<div th:replace="fragments :: myheader"> </div>
 	</head>
 	<body >
 	<form th:action="@{/index}" method="get">
@@ -20,12 +19,13 @@
 							<span class="menu"></span>
 								<div class="top-menu">
 									<ul class="nav">
-										<li><a th:href="@{/aboutus}">Về Chúng tôi</a></li>
+										<li sec:authorize="isAuthenticated()"><a th:href="@{/aboutus}">Đơn Hàng của tôi</a></li>
 										<li sec:authorize="isAnonymous()"><a id="lo-gin" th:href="@{/Login}" >Đăng Nhập</a></li>
 										<li sec:authorize="isAuthenticated()"><a th:href="@{/profile}" sec:authentication="name">Đăng Nhập</a></li> 
+										 <!-- <a href="profile" sec:authentication="principal.authorities"></a> --> 
 										<li sec:authorize="isAnonymous()">	<a th:href="@{/register}">Đăng Ký</a></li>
-										<li sec:authorize="isAuthenticated()"><a th:href="@{/logout}">Logout</a></li> 
-										<li><a th:href="@{/quydinhgiaohang}">				Quy Định giao hàng</a></li>
+										<li sec:authorize="isAuthenticated()"><a th:href="@{/logout}">Thoát</a></li> 
+										<li><a th:href="@{/quydinhgiaohang}">Quy Định giao hàng</a></li>
 									</ul>
 								</div>
 							</div>
@@ -37,7 +37,7 @@
 						<div class="row">
 							<div class="col-6 col-xs-6 col-sm-6 col-md-3 col-lg-3 order-md-0 order-0">
 								<div class="logo">
-									<a href="#"><img th:src="@{images/logo.png} "alt=""></a>
+									<a href="#"><img th:src="@{http://localhost:9090/images/logo.png} "alt=""></a>
 									<h1>Website bán hàng</h1>
 								</div>
 							</div>
@@ -100,10 +100,10 @@
 						<div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
 						  <div class="carousel-inner">
 						    <div class="carousel-item active">
-						      <img class="d-block w-100" src="images/banner-01.png" alt="First slide">
+						      <img class="d-block w-100" src="http://localhost:9090/images/banner-01.png" alt="First slide">
 						    </div>
 						    <div class="carousel-item">
-						      <img class="d-block w-100" src="images/baner-02.png" alt="Second slide">
+						      <img class="d-block w-100" src="http://localhost:9090/images/baner-02.png" alt="Second slide">
 						    </div>
 						  </div>
 						  <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
@@ -146,27 +146,27 @@
 										<div class="content-w">
 											<ul>
 												<li>
-													<a href="#"><img src="images/news.jpg" alt=""></a>
+													<a href="#"><img src="http://localhost:9090/images/news.jpg" alt=""></a>
 													<h4><a href="#">Thương hiệu đồng hồ thông minh Sinophy của nước nào?</a></h4>
 													<div class="clear"></div>
 												</li>
 												<li>
-													<a href="#"><img src="images/news.jpg" alt=""></a>
+													<a href="#"><img src="http://localhost:9090/images/news.jpg" alt=""></a>
 													<h4><a href="#">Thương hiệu đồng hồ thông minh Sinophy của nước nào?</a></h4>
 													<div class="clear"></div>
 												</li>
 												<li>
-													<a href="#"><img src="images/news.jpg" alt=""></a>
+													<a href="#"><img src="http://localhost:9090/images/news.jpg" alt=""></a>
 													<h4><a href="#">Thương hiệu đồng hồ thông minh Sinophy của nước nào?</a></h4>
 													<div class="clear"></div>
 												</li>
 												<li>
-													<a href="#"><img src="images/news.jpg" alt=""></a>
+													<a href="#"><img src="http://localhost:9090/images/news.jpg" alt=""></a>
 													<h4><a href="#">Thương hiệu đồng hồ thông minh Sinophy của nước nào?</a></h4>
 													<div class="clear"></div>
 												</li>
 												<li>
-													<a href="#"><img src="images/news.jpg" alt=""></a>
+													<a href="#"><img src="http://localhost:9090/images/news.jpg" alt=""></a>
 													<h4><a href="#">Thương hiệu đồng hồ thông minh Sinophy của nước nào?</a></h4>
 													<div class="clear"></div>
 												</li>
@@ -180,7 +180,7 @@
 										</h3>
 										<div class="content-banner">
 											<a href="#">
-												<img src="images/banner.png" alt="">
+												<img src="http://localhost:9090/images/banner.png" alt="">
 											</a>
 										</div>
 									</div>
@@ -198,19 +198,13 @@
 							<div class="col-xs-12 col-sm-12 col-md-12 col-lg-9 order-lg-1 order-0" th:fragment="product">
 								<div class="product-section" >
 									<h2 class="title-product">
-										<a href="#" class="title">Tất cả các Sản phẩm</a>
+										<a href="#" class="title">Tất cả các sản phẩm</a>
 										<div class="bar-menu"><i class="fa fa-bars"></i></div>
 										<div class="list-child">
 											<ul>
-												<li><a th:href="@{'/product/' + ${currentpage} + '?sortBy=price&sortDirection=' + ${direction}}">Gía cả</a>	
-													<span th:if="${sortBy == 'price'}" th:class="${direction == 'asc' ? 'fas fa-sort-up' : 'fas fa-sort-down'}"></span>											
-												</li>
-												<li><a th:href="@{'/product/' + ${currentpage} + '?sortBy=Theloai&sortDirection=' + ${direction}}">Iphone</a>
-													<span th:if="${sortBy == 'Theloai'}" th:class="${direction == 'asc' ? 'fas fa-sort-up' : 'fas fa-sort-down'}"></span>
-												</li>
-												<li><a th:href="@{'/product/' + ${currentpage} + '?sortBy=name_product&sortDirection=' + ${direction}}">Samsung</a>
-													<span th:if="${sortBy == 'name_product'}" th:class="${direction == 'asc' ? 'fas fa-sort-up' : 'fas fa-sort-down'}"></span>
-												</li>
+												<li><a th:href="@{'/product/' + ${currentpage} + '?sortBy=price&sortDirection=' + ${direction}}">Gía Cả</a></li>
+												<li><a th:href="@{'/product/' + ${currentpage} + '?sortBy=Theloai&sortDirection=' + ${direction}}">Iphone</a></li>
+												<li><a th:href="@{'/product/' + ${currentpage} + '?sortBy=Theloai&sortDirection=' + ${direction}}">Samsung</a></li>
 											</ul>
 										</div>
 										<div class="clear" ></div>
@@ -221,10 +215,10 @@
 												<div class="item-product">
 													<div class="thumb">
 														<tr></tr>
-														<a href="#"><img src="images/iPhone 11128Gb.jpg" alt=""></a>
+														<a href="#"><img th:src="@{${product.ImageProduct}}" alt="" width="900" height="200" ></a>
 														<div class="action">
-															<a href="#" class="buy"><i class="fa fa-cart-plus"></i> Mua ngay</a>
-															<a href="#" class="like"><i class="fa fa-heart"></i> Yêu thích</a>
+															<a href="#" class="buy"><i class="fa fa-cart-plus"></i> Mua </a>
+															<a th:href="@{/product_id/{proId}(proId=${product.Id})}" class="like"><i class="fa fa-heart"></i> Bỏ giỏ</a>
 															<div class="clear"></div>
 														</div>
 													</div>
@@ -233,12 +227,12 @@
 														<div class="price">
 															<span class="price-current" th:text="${product.price}"> </span>
 														</div>
-														<a href="#" class="view-more">Xem chi tiết</a>
+														<a th:href="@{/product_code/{id}(id=${product.product_code})}" class="view-more">Xem Chi tiết</a>
 													</div>
 												</div>
 											</div>					
 										</div>
-										<div>Tổng Số sản phẩm: [[${totalitem}]] - Page [[${currentpage}]] of [[${totalpage}]]
+										<div>Tổng sản phẩm : [[${totalitem}]] - Page [[${currentpage}]] of [[${totalpage}]]
 										&nbsp; - &nbsp;
 											<a th:if="${currentpage > 1}" th:href="@{'/product'}">First</a>
                 							<span th:unless="${currentpage > 1}">First</span>
@@ -263,7 +257,7 @@
 					</div>
 				</div>
 			</div>
-			<footer>
+		<footer>
 				<div class="container">
 					<div class="row">
 						<div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
@@ -334,7 +328,7 @@
 				</div>
 			</footer>
 		</div>
-		<div th:replace="index :: script-back"></div>
+		<div th:replace="fragments :: script-back"> </div>
 		</form>
 	</body>
 </html>

@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -14,6 +15,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import net.bytebuddy.utility.RandomString;
 import project.green.shop.model.Custumer;
+import project.green.shop.security.MyUserDetails;
+import project.green.shop.auth.CustomOauth2;
 import project.green.shop.auth.EnumProvider;
 @Service
 @Transactional
@@ -36,6 +39,10 @@ public class CustumerService implements UserDetailsService{
 	
 	public List<Custumer> AllCustomer() {
 		return cusrepo.findAll();
+	}
+	public Custumer getById(Integer id)
+	{
+		return cusrepo.getById(id);
 	}
 	
 	public Custumer getByEmail(String email1) {
@@ -171,4 +178,22 @@ public class CustumerService implements UserDetailsService{
 		custumer.setTokenPassword(null);
 		cusrepo.save(custumer);
 	}
+	
+	public Custumer getCurrentLoggedInCustumer(Authentication authentication)
+	{   if(authentication == null) return null;
+		Custumer custumer = null;
+		Object Principal = authentication.getPrincipal();
+		if(Principal instanceof MyUserDetails)
+		{
+			custumer = ((MyUserDetails) Principal).getCustumer();
+		}else if (Principal instanceof CustomOauth2)
+		{
+			String email = ((MyUserDetails) Principal).getUsername();
+			custumer = cusrepo.getByEmail(email);
+		}
+	
+		return custumer;
+		
+	}
 }
+

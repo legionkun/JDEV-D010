@@ -60,7 +60,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	private OAuth2LoginSuccess success;
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http.authorizeRequests().antMatchers("/","/index","/verify","/profile/update","/page/**","/product/**","/access-denied","/403","/404","/500","/oauth2/**","/css/**","/images/**","/js/**","/lib/**","/aboutus","/Login","/register","/quydinhgiaohang","/Login/Error","/reset_password", "/changepass","/forgot","/forgot/getpass","/save","Register").permitAll()
+		http.authorizeRequests().antMatchers("/","/adminsapo","/index","/verify","/profile/update","/page/**","/product/**","/product_details","/product_code/**","/access-denied","/403","/404",
+				"/500","/oauth2/**","/css/**","/assets/**","/images/**","/pro/**","/js/**","/lib/**","/aboutus","/cart/**","/cart","/product_id/**",
+				"/Login","/register","/quydinhgiaohang","/Login/Error","/reset_password", "/changepass","/forgot","/forgot/getpass","/save","Register").permitAll()
 		.anyRequest().authenticated()
 		.and().formLogin().loginPage("/Login").permitAll()
 		.usernameParameter("email1")
@@ -72,6 +74,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		.and().exceptionHandling().accessDeniedHandler(accessDeniedHandler())
 		.and().csrf().disable().logout().logoutSuccessUrl("/")
 		.permitAll()
+		.and().rememberMe().key("qwertyuiop")
 		.and().exceptionHandling().accessDeniedPage("/403")
 		.and().oauth2Login().loginPage("/Login").userInfoEndpoint().userService(customservice)
 		.and().successHandler(success).permitAll();

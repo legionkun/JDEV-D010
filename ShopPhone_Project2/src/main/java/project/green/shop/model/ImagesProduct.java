@@ -10,6 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 @Entity
 @Table(name= "images_product")
@@ -28,8 +29,19 @@ public class ImagesProduct implements Serializable{
 		public ImagesProduct() {}
 		
 		@ManyToOne 
-	    @JoinColumn(name = "id", insertable = false, updatable = false)
+	    @JoinColumn(name = "product_id", insertable = false, updatable = false)
 		private Product product;
+		
+		private int product_code;
+		
+		
+		public int getProduct_code() {
+			return product_code;
+		}
+
+		public void setProduct_code(int product_code) {
+			this.product_code = product_code;
+		}
 
 		public int getId() {
 			return Id;
@@ -40,7 +52,7 @@ public class ImagesProduct implements Serializable{
 		}
 
 		public String getImage() {
-			return image;
+			return "http://localhost:9090/images" + "/" + this.image;
 		}
 
 		public void setImage(String image) {
@@ -60,5 +72,28 @@ public class ImagesProduct implements Serializable{
 		}
 		
 		
+		@Override
+		public String toString() {
+			return "ImagesProduct [Id=" + product.getId() + ", image=" + image + ", product=" + product + ", product_code="
+					+ product_code + "]";
+		}
 
+		public ImagesProduct(int id, String image, Product product, int product_code) {
+			super();
+			Id = id;
+			this.image = image;
+			this.product = product;
+			this.product_code = product_code;
+		}
+
+		@Transient
+		public String getImagessProduct() {
+			if (product_code==0 && this.image == null) {
+				System.out.println(" Null ");
+				return null;
+			}
+			System.out.println("  "+product_code );
+			System.out.println("  "+image );
+			return "http://localhost:9090/images" + "/" + this.image;
+		}
 }

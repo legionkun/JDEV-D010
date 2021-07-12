@@ -12,7 +12,7 @@ spring:
        - max-request-size=500000KB     
   jpa:
     hibernate:
-      ddl-auto: none
+      ddl-auto: update
       naming:
         strategy: org.hibernate.cfg.ImprovedNamingStrategy
     properties:

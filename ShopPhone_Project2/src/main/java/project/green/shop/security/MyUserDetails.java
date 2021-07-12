@@ -47,7 +47,11 @@ public class MyUserDetails  implements UserDetails{
 	@Override
 	public String getUsername() {
 	
-		return custumer.getEmail();
+		if(custumer.getHoten().isEmpty() || custumer.getHoten()== null)
+		{
+			return custumer.getEmail();
+		}
+		return custumer.getHoten();
 	}
 
 	@Override
