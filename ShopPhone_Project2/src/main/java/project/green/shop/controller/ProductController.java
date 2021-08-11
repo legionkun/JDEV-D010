@@ -80,7 +80,6 @@ public class ProductController {
 		List<ImagesProduct> ima = pro.getAllImage(id);
 		model.addAttribute("ima", ima);
 		model.addAttribute(product);
-		System.out.println(" "+product.getIma());
 		return "/product_details";
 	}
 	
@@ -93,14 +92,16 @@ public class ProductController {
 	
 	@GetMapping("/product_id/{proId}")
 	public String SettoCartItem(@PathVariable("proId")int id,@AuthenticationPrincipal MyUserDetails user)
-	{	
+	{	if(user != null)
+	{
 		CartItem cartitem = new CartItem();
 		Product prod = pro.findById(id); 
 		cartitem.setProduct(prod);
 		Custumer cus = cusservice.getById(user.getId());
 		cartitem.setCustumer(cus);
 		cartservice.SaveToCart(cartitem);
-		return "";
+		return "forward:/product";
+	}return "Login";
 	}
 
 }

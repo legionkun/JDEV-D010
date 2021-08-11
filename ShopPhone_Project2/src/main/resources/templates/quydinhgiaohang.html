@@ -1,112 +1,13 @@
 <!DOCTYPE html>
 <html lang="vi" xmlns:th="http://www.thymeleaf.org"
 				xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
-	<head >
-		<meta charset="utf-8">
-		<meta http-equiv="X-UA-Compatible" content="IE=edge">
-		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<title>Website bán hàng đơn giản</title>
-		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,500,500i">
-		<link rel="stylesheet" type="text/css" href="libs/bootstrap/css/bootstrap.min.css">
-		<link rel="stylesheet" type="text/css" href="libs/font-awesome/css/font-awesome.min.css"> 
-		<link rel="stylesheet" type="text/css"  href ="css/main.css">
-		<link rel="stylesheet" type="text/css"  href ="css/scrollHeader.css">
-		<link rel="stylesheet" type="text/css" href="css/responsive.css">
-		<link rel="stylesheet" href="css/scrolling.css">
-	<	<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet"
-          integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
-          <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.css" rel="stylesheet" type="text/css" />
-		  <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+	<head>
+	<div th:replace="fragments :: myheader"> </div>
 	</head>
+	
 	<body>
 		<div id="wallpaper"class="relative">
-			<div class="fixed">
-			<header class="fixcolor">
-				<div  class="top" >
-					<div class="container">
-						<div class="row">
-							<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
-								<p>Chào mừng đến với shop bán hàng!</p>
-							</div>							
-							<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
-							<span class="menu"></span>
-								<div class="top-menu">
-									<ul class="nav">
-										<li sec:authorize="isAuthenticated()"><a th:href="@{/aboutus}">Đơn Hàng của tôi</a></li>
-										<li sec:authorize="isAnonymous()"><a id="lo-gin" th:href="@{/Login}" >Đăng Nhập</a></li>
-										<li sec:authorize="isAuthenticated()"><a th:href="@{/profile}" sec:authentication="name">Đăng Nhập</a></li> 
-										 <!-- <a href="profile" sec:authentication="principal.authorities"></a> --> 
-										<li sec:authorize="isAnonymous()">	<a th:href="@{/register}">Đăng Ký</a></li>
-										<li sec:authorize="isAuthenticated()"><a th:href="@{/logout}">Thoát</a></li> 
-										<li><a th:href="@{/quydinhgiaohang}">Quy Định giao hàng</a></li>
-									</ul>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="main-header">
-					<div class="container">
-						<div class="row">
-							<div class="col-6 col-xs-6 col-sm-6 col-md-3 col-lg-3 order-md-0 order-0">
-								<div class="logo">
-									<a href="#"><img th:src="@{images/logo.png} "alt=""></a>
-									<h1>Website bán hàng</h1>
-								</div>
-							</div>
-							<div class="col-12 col-xs-12 col-sm-12 col-md-6 col-lg-6 order-md-1 order-2">
-								<div class="form-seach-product">
-									<form action="/" method="GET" role="form">
-										<select name="" id="input" class="form-control" required="required">
-											<option value="">Chọn danh mục</option>
-											<option value="1">Điện thoại</option>
-											<option value="2">Máy tính bản</option>
-											<option value="3">Lap top</option>
-											<option value="4">Phụ kiện</option>
-										</select>
-										<div class="input-seach">
-											<input type="text" name="s" id="" class="form-control">
-									<button type="submit" class="btn-search-pro"><i class="fa fa-search"></i></button>
-										</div>
-										<div class="clear"></div>
-									</form>
-								</div>
-							</div>
-							<div class="col-6 col-xs-6 col-sm-6 col-md-3 col-lg-3 order-md-2 order-1" style="text-align: right">
-								<a href="#" class="icon-cart">
-									<div class="icon">
-										<i class="fa fa-shopping-cart" aria-hidden="true"></i>
-										<span></span>
-									</div>
-									<div class="info-cart">
-										<p>Giỏ hàng</p>
-										<span>0đ</span>
-									</div>
-									<span class="clear"></span>
-								</a>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="main-menu-header">
-					<div class="container">
-						<div id="nav-menu">
-							<ul>
-								<li class="current-menu-item"><a href="index" th:href="@{/}"> Trang chủ</a></li>
-								<li><a href="#">Giới thiệu</a></li>
-								<li>
-									<a href="#">Sản phẩm</a>
-									<ul>
-										<li><a href="/product">Điện thoại</a></li>
-									</ul>
-								</li>
-							</ul>
-							<div class="clear"></div>
-						</div>
-					</div>
-				</div>
-				</div>
-			</header>
+		<div th:replace="fragments :: header"> </div>
 			<div id="content">
 				<div class="container">
 					<div class="slider">

@@ -26,4 +26,9 @@ public void SaveToCart(CartItem cartitem)
 {
 	cartrepo.save(cartitem);
 }
+
+public void DelProduct(Integer id)
+{
+	cartrepo.deleteById(id);
+	}
 }

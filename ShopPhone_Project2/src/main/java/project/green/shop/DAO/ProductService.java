@@ -3,7 +3,6 @@ package project.green.shop.DAO;
 
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -61,5 +60,23 @@ public class ProductService {
 	public Product findById(int id)
 	{
 		return pro.getById(id);
+	}
+	
+	public List<Product> getByBestSell()
+	{
+		return pro.getBestSeller();
+	}
+	
+	public List<Product> getByPriceSell()
+	{
+		return pro.getprice_sell();
+	}
+	
+	public boolean checkPrice_sell(int id)
+	{
+		Product prod = pro.getByProductCode(id); 
+		if(prod.getPrice_sell() == 0) {
+			return false;
+		}return true;
 	}
 }

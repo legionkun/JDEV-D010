@@ -2,6 +2,7 @@ package project.green.shop.controller;
 
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -22,10 +23,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import project.green.shop.DAO.CartItemService;
 import project.green.shop.DAO.CateloryService;
 import project.green.shop.DAO.CustumerService;
+import project.green.shop.DAO.ProductService;
 import project.green.shop.helper.FileUpLoadHelper;
+import project.green.shop.model.CartItem;
 import project.green.shop.model.Custumer;
+import project.green.shop.model.Product;
 import project.green.shop.security.MyUserDetails;
 
 
@@ -34,9 +39,21 @@ public class ClientController {
 	@Autowired
 	CateloryService service;
 	
+	@Autowired
+	ProductService proser;
+	
+	@Autowired
+	CartItemService cartservice;
 	@GetMapping("/")
-	public String showIndexView() {
-
+	public String showIndexView(Model model,@AuthenticationPrincipal MyUserDetails user) {
+		List<Product> prolist = proser.getByNewProduct();
+		model.addAttribute("prolistbest_sell", prolist);
+		List<Product> propricelist = proser.getByPriceSell();
+		model.addAttribute("listprice_sell", propricelist);
+		if(user !=null) {
+		List<CartItem> cartlist= cartservice.findById(user.getId());
+		model.addAttribute("cartlist", cartlist);
+		}
 		return "index";
 	}
 	
@@ -64,8 +81,8 @@ public class ClientController {
 	@RequestMapping(value="/profile", method = RequestMethod.GET)
 	public String ShowProfile(Model model,@AuthenticationPrincipal MyUserDetails user ) throws IOException
 	{		
-		String u = user.getUsername();
-		model.addAttribute("custum",cus.getByEmail(u));
+		Integer u = user.getId();
+		model.addAttribute("custum",cus.getById(u));
 		System.out.println(" Image on when showing by STRING " + user.getImage());
 		return "profile";
 	}

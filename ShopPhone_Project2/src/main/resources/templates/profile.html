@@ -3,120 +3,12 @@
 	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 
 <head>
-	<meta charset="utf-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Website bán hàng đơn giản</title>
-	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,500,500i">
-	<link rel="stylesheet" href="libs/bootstrap/css/bootstrap.min.css">
-	<link rel="stylesheet" href="libs/font-awesome/css/font-awesome.min.css">
-	<link rel="stylesheet" href="css/main.css">
-	<link rel="stylesheet" href="css/scrolling.css">
-	<link rel="stylesheet" href="js/fancy.js">
-	<link rel="stylesheet" href="css/responsive.css">
-	<link rel="stylesheet" href="libs/bootstrap/js/jquery.fancybox.min.js">
-	<script src="https://cdn.jsdelivr.net/npm/jquery@3.4.1/dist/jquery.min.js"></script>
-
-	<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
-	<script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
-	<link rel="stylesheet" href="http://media.hot.vn/js/fancybox/format.css?ver=3.2" type="text/css" />
+	<div th:replace="fragments :: myheader"> </div>
 </head>
 
 <body>
 	<div id="wallpaper" class="relative">
-		<div class="fixed">
-			<header class="fixcolor">
-				<div class="top">
-					<div class="container">
-						<div class="row">
-							<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
-								<p>Chào mừng đến với shop bán hàng!</p>
-							</div>
-							<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
-								<div class="top-menu">
-									<ul>
-										<li><a th:href="@{/aboutus}">Về Chúng tôi</a></li>
-										<li sec:authorize="isAnonymous()"><a id="lo-gin" th:href="@{/Login}">Đăng Nhập</a></li>
-										<li sec:authorize="isAuthenticated()"><a href="profile" sec:authentication="name">Đăng Nhập</a></li>
-										<li sec:authorize="isAnonymous()"><a th:href="@{/register}">Đăng Ký</a></li>
-										<li sec:authorize="isAuthenticated()"><a th:href="@{/logout}">Log out</a></li>
-										<li><a th:href="@{/quydinhgiaohang}">Quy Định giao hàng</a></li>
-									</ul>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="main-header">
-					<div class="container">
-						<div class="row">
-							<div class="col-6 col-xs-6 col-sm-6 col-md-3 col-lg-3 order-md-0 order-0">
-								<div class="logo">
-									<a href="#"><img src="images/logo.png " alt=""></a>
-									<h1>Website bán hàng</h1>
-								</div>
-							</div>
-							<div class="col-12 col-xs-12 col-sm-12 col-md-6 col-lg-6 order-md-1 order-2">
-								<div class="form-seach-product">
-									<form action="/" method="GET" role="form">
-										<select name="" id="input" class="form-control" required="required">
-											<option value="">Chọn danh mục</option>
-											<option value="1">Điện thoại</option>
-											<option value="2">Máy tính bản</option>
-											<option value="3">Lap top</option>
-											<option value="4">Phụ kiện</option>
-										</select>
-										<div class="input-seach">
-											<input type="text" name="s" id="" class="form-control">
-											<button type="submit" class="btn-search-pro"><i
-													class="fa fa-search"></i></button>
-										</div>
-										<div class="clear"></div>
-									</form>
-								</div>
-							</div>
-							<div class="col-6 col-xs-6 col-sm-6 col-md-3 col-lg-3 order-md-2 order-1"
-								style="text-align: right">
-								<a href="#" class="icon-cart">
-									<div class="icon">
-										<i class="fa fa-shopping-cart" aria-hidden="true"></i>
-										<span>3</span>
-									</div>
-									<div class="info-cart">
-										<p>Giỏ hàng</p>
-										<span>0đ</span>
-									</div>
-									<span class="clear"></span>
-								</a>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="main-menu-header">
-					<div class="container">
-						<div id="nav-menu">
-							<ul>
-								<li class="current-menu-item"><a href="#">Trang chủ</a></li>
-								<li><a href="#">Giới thiệu</a></li>
-								<li>
-									<a href="#">Sản phẩm</a>
-									<ul>
-										<li><a href="#">Điện thoại</a></li>
-										<li><a href="#">Máy tính bảng</a></li>
-										<li><a href="#">Laptop</a></li>
-										<li><a href="#">Sản phẩm khác</a></li>
-									</ul>
-								</li>
-								<li><a href="#">Tin tức</a></li>
-								<li><a href="#">Tuyển dụng</a></li>
-								<li><a href="#">Liên hệ</a></li>
-							</ul>
-							<div class="clear"></div>
-						</div>
-					</div>
-				</div>
-		</div>
-		</header>
+		<div th:replace="fragments :: header"> </div>
 		<div id="content">
 			<div class="container">
 				<div class="slider">
@@ -246,7 +138,7 @@
 										<div class="_3wam_fc0n3F8W2D-BvqYNK" data-reactid="20">
 											<div class="be-Hqc5uEkMmHJf3ZA2Rw col-md-3 col-sm-12" data-reactid="21">
 												<div class="T8j5wxsOm0H3gemUZxWlK" data-reactid="22">
-													<img src= "#" alt="your-image"  id="thumnail" width="300" height="auto" />
+													<img th:src="${custum.getImagePath()}" alt="your-image"  id="thumnail" width="300" height="auto" />
 										<input type="file" name="Imageg" id="imgProfile" accept="image/jpeg, image/png, image/jpg"
 										data-reactid="26">
 													</div>
@@ -255,7 +147,7 @@
            													 <input type="email" th:field="*{Email}" disabled readonly />
           												</div>	
 														 <div class="input_field"> <span><i aria-hidden="true" class="fa fa-lock"></i>Mật Khẩu</span>
-           													 <input type="password" id="password" th:field="${custumer.Password}" placeholder="*****************" disabled readonly  />
+           													 <input type="password" id="password" th:field="${custum.Password}" placeholder="*****************" disabled readonly  />
           												</div>	
           												 <div class="input_field"> <span><i aria-hidden="true" class="fa fa-user"></i>Họ tên</span>
            													 <input type="text" th:field="*{Hoten}" placeholder="Name" required />
@@ -370,15 +262,9 @@
 				</div>
 			</footer>
 		</div>
-		<script src="libs/jquery-3.4.1.min.js"></script>
-		<script src="libs/bootstrap/js/bootstrap.min.js"></script>
-		<script src="js/main.js"></script>
-		<script src="libs/bootstrap/js/jquery.fancybox.min"></script>
-		<div id="fb-root"></div>
-		<script async defer crossorigin="anonymous"
-			src="https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v6.0"></script>
-		<script src="http://media.hot.vn/js/fancybox/format.js?ver=3.2" type="text/javascript"></script>
-		<script type="text/javascript">
+		<div th:replace="fragments :: script-back"> </div>
+		</div>
+		<script>
 		$(document).ready(function() {
 			$("#imgProfile").change(function() {
 				readUrl(this);

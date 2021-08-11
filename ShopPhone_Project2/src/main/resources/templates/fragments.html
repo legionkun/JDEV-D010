@@ -1,6 +1,6 @@
 
 <div th:fragment="myheader" th:remove="tag">
-		<meta charset="utf-8">
+			<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<title>Website bán hàng đơn giản</title>
@@ -36,7 +36,7 @@
 		<script th:src="@{/js/scrollHeader.js}"></script>
 		</div>
 
-		<div id="wallpaper"class="relative" th:fragment="header" th:remove="tag">
+			<div th:fragment="header" th:remove="tag">
 			<div class="fixed">
 			<header class="fixcolor">
 				<div  class="top" >
@@ -49,12 +49,21 @@
 							<span class="menu"></span>
 								<div class="top-menu">
 									<ul class="nav">
-										<li><a href="/aboutus">Về Chúng tôi</a></li>
-										<li><a id="lo-gin" href="/Login" >Đăng Nhập</a></li>
-										 
-										<li>	<a href="/register">Đăng Ký</a></li>
-										 
-										<li><a href="/quydinhgiaohang">				Quy Định giao hàng</a></li>
+										<li sec:authorize="isAuthenticated()"><a th:href="@{/cart}">Đơn Hàng của tôi</a></li>
+										<li sec:authorize="isAnonymous()"><a id="lo-gin" th:href="@{/Login}" >Đăng Nhập</a></li>
+										<li sec:authorize="isAuthenticated()"><a th:href="@{/profile}" sec:authentication="name">Đăng Nhập</a></li> 
+										 <!-- <a href="profile" sec:authentication="principal.authorities"></a> --> 
+										<li sec:authorize="isAnonymous()">	<a th:href="@{/register}">Đăng Ký</a></li>
+										<li sec:authorize="isAuthenticated()"><a th:href="@{/logout}">Thoát</a></li> 
+										<li><a th:href="@{/quydinhgiaohang}">Quy Định giao hàng</a></li>
+										<li>
+									<input type="checkbox" class="checkbox" id="checkbox">
+									<label for="checkbox" class="label">
+									<i class ="fas fa-moon" ></i>
+									<i class ="fas fa-sun" ></i>
+									<div class="ball"></div>
+									</label>
+									</li>
 									</ul>
 								</div>
 							</div>
@@ -66,7 +75,7 @@
 						<div class="row">
 							<div class="col-6 col-xs-6 col-sm-6 col-md-3 col-lg-3 order-md-0 order-0">
 								<div class="logo">
-									<a href="#"><img src="http://localhost:9090/images/logo.png"alt=""></a>
+									<a href="#"><img th:src="@{http://localhost:9090/images/logo.png} "alt=""></a>
 									<h1>Website bán hàng</h1>
 								</div>
 							</div>
@@ -88,11 +97,14 @@
 									</form>
 								</div>
 							</div>
-							<div class="col-6 col-xs-6 col-sm-6 col-md-3 col-lg-3 order-md-2 order-1" style="text-align: right">
-								<a href="#" class="icon-cart">
+							<div class="col-6 col-xs-6 col-sm-6 col-md-3 col-lg-3 order-md-2 order-1" style="text-align: right" >
+								<a href="/cart" class="icon-cart" >
 									<div class="icon">
 										<i class="fa fa-shopping-cart" aria-hidden="true"></i>
-										<span></span>
+										<a>
+										<span th:if ="${user !=null}" th:text="${#lists.size(cartlist)}"></span>
+										<span th:if ="${user ==null}">0</span>
+										</a>
 									</div>
 									<div class="info-cart">
 										<p>Giỏ hàng</p>
@@ -108,14 +120,15 @@
 					<div class="container">
 						<div id="nav-menu">
 							<ul>
-								<li class="current-menu-item"><a href="/"> Trang chủ</a></li>
-								<li><a href="#">Giới thiệu</a></li>
+								<li class="current-menu-item"><a href="index" th:href="@{/}"> Trang chủ</a></li>
+								<li><a href="/product">Tất cả điện thoại</a></li>
 								<li>
 									<a href="#">Sản phẩm</a>
 									<ul>
 										<li><a href="/product">Điện thoại</a></li>
 									</ul>
 								</li>
+							
 							</ul>
 							<div class="clear"></div>
 						</div>
@@ -123,3 +136,4 @@
 				</div>
 				</div>
 			</header>
+			</div>

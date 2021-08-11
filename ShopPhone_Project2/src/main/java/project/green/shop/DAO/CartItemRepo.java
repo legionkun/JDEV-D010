@@ -16,4 +16,6 @@ public List<CartItem> findByIdCustumer(Integer id);
 @Query("Select u from CartItem u where custumer_id=?1 and product_id=?1")
 public List<CartItem> findByCustumerAndProduct(Integer cus_id,Integer pro_id);
 
+@Query("Update CartItem u Set u.quantity=?1  where product_id=?1")
+public void updateByProID(Integer qtity,Integer proid);
 }

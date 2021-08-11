@@ -36,112 +36,117 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 </head>
 
 <body>
-	<form th:action="@{/index}" method="get">
 		<div id="wallpaper" class="relative">
 			<div class="fixed">
-				<header class="fixcolor">
-					<div class="top">
-						<div class="container">
-							<div class="row">
-								<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
-									<p>Chào mừng đến với shop bán hàng!</p>
-								</div>
-								<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
-									<span class="menu"></span>
-									<div class="top-menu">
-										<ul class="nav">
-											<li sec:authorize="isAuthenticated()"><a th:href="@{/cart}">Đơn Hàng của
-													tôi</a></li>
-											<li sec:authorize="isAnonymous()"><a id="lo-gin" th:href="@{/Login}">Đăng
-													Nhập</a></li>
-											<li sec:authorize="isAuthenticated()"><a th:href="@{/profile}"
-													sec:authentication="name">Đăng Nhập</a></li>
-											<!-- <a href="profile" sec:authentication="principal.authorities"></a> -->
-											<li sec:authorize="isAnonymous()"> <a th:href="@{/register}">Đăng Ký</a>
-											</li>
-											<li sec:authorize="isAuthenticated()"><a th:href="@{/logout}">Thoát</a></li>
-											<li><a th:href="@{/quydinhgiaohang}">Quy Định giao hàng</a></li>
-											<!--<li>
-									<input type="checkbox" class="checkbox" id="checkbox">
-									<label for="checkbox" class="label">
-									<i class ="fas fa-moon" ></i>
-									<i class ="fas fa-sun" ></i>
-									<div class="ball"></div>
-									</label>
-									</li>-->
-										</ul>
-									</div>
+			<header class="fixcolor">
+				<div  class="top" >
+					<div class="container">
+						<div class="row">
+							<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+								<p>Chào mừng đến với shop bán hàng!</p>
+							</div>							
+							<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+							<span class="menu"></span>
+								<div class="top-menu">
+									<ul class="nav">
+										<li sec:authorize="isAuthenticated()"><a th:href="@{/cart}">Đơn Hàng của tôi</a></li>
+										<li sec:authorize="isAnonymous()"><a id="lo-gin" th:href="@{/Login}" >Đăng Nhập</a></li>
+										<li sec:authorize="isAuthenticated()"><a th:href="@{/profile}" sec:authentication="name">Đăng Nhập</a></li> 
+										 <!-- <a href="profile" sec:authentication="principal.authorities"></a> --> 
+										<li sec:authorize="isAnonymous()">	<a th:href="@{/register}">Đăng Ký</a></li>
+										<li sec:authorize="isAuthenticated()"><a th:href="@{/logout}">Thoát</a></li> 
+									</ul>
 								</div>
 							</div>
 						</div>
 					</div>
-					<div class="main-header">
-						<div class="container">
-							<div class="row">
-								<div class="col-6 col-xs-6 col-sm-6 col-md-3 col-lg-3 order-md-0 order-0">
-									<div class="logo">
-										<a href="#"><img th:src="@{http://localhost:9090/images/logo.png} " alt=""></a>
-										<h1>Website bán hàng</h1>
-									</div>
+				</div>
+				<div class="main-header">
+					<div class="container">
+						<div class="row">
+							<div class="col-6 col-xs-6 col-sm-6 col-md-3 col-lg-3 order-md-0 order-0">
+								<div class="logo">
+									<a href="#"><img th:src="@{http://localhost:9090/images/logo.png} "alt=""></a>
+									<h1>Website bán hàng</h1>
 								</div>
-								<div class="col-12 col-xs-12 col-sm-12 col-md-6 col-lg-6 order-md-1 order-2">
-									<div class="form-seach-product">
-										<form action="/" method="GET" role="form">
-											<select name="" id="input" class="form-control" required="required">
-												<option value="">Chọn danh mục</option>
-												<option value="1">Điện thoại</option>
-												<option value="2">Máy tính bản</option>
-												<option value="3">Lap top</option>
-												<option value="4">Phụ kiện</option>
-											</select>
-											<div class="input-seach">
-												<input type="text" name="s" id="" class="form-control">
-												<button type="submit" class="btn-search-pro"><i
-														class="fa fa-search"></i></button>
-											</div>
-											<div class="clear"></div>
-										</form>
-									</div>
-								</div>
-								<div class="col-6 col-xs-6 col-sm-6 col-md-3 col-lg-3 order-md-2 order-1"
-									style="text-align: right">
-									<a href="#" class="icon-cart">
-										<div class="icon">
-											<i class="fa fa-shopping-cart" aria-hidden="true"></i>
-											<span></span>
+							</div>
+							<div class="col-12 col-xs-12 col-sm-12 col-md-6 col-lg-6 order-md-1 order-2">
+								<div class="form-seach-product">
+									<form action="/" method="GET" role="form">
+										<select name="" id="input" class="form-control" required="required">
+											<option value="">Chọn danh mục</option>
+											<option value="1">Điện thoại</option>
+											<option value="2">Máy tính bản</option>
+											<option value="3">Lap top</option>
+											<option value="4">Phụ kiện</option>
+										</select>
+										<div class="input-seach">
+											<input type="text" name="s" id="" class="form-control">
+									<button type="submit" class="btn-search-pro"><i class="fa fa-search"></i></button>
 										</div>
-										<div class="info-cart">
-											<p>Giỏ hàng</p>
-											<span>0đ</span>
-										</div>
-										<span class="clear"></span>
-									</a>
+										<div class="clear"></div>
+									</form>
 								</div>
+							</div>
+							<div class="col-6 col-xs-6 col-sm-6 col-md-3 col-lg-3 order-md-2 order-1" style="text-align: right" >
+								<a href="/cart" class="icon-cart" >
+									<div class="icon">
+										<i class="fa fa-shopping-cart" aria-hidden="true"></i>
+										<a>
+										<span th:if ="${user !=null}" th:text="${#lists.size(cartlist)}"></span>
+										<span th:if ="${user ==null}">0</span>
+										</a>
+									</div>
+									<div class="info-cart">
+										<p>Giỏ hàng</p>
+										<span>0đ</span>
+									</div>
+									<span class="clear"></span>
+								</a>
 							</div>
 						</div>
 					</div>
-					<div class="main-menu-header">
-						<div class="container">
-							<div id="nav-menu">
-								<ul>
-									<li class="current-menu-item"><a href="index" th:href="@{/}"> Trang chủ</a></li>
-									<li><a href="#">Giới thiệu</a></li>
+				</div>
+				<div class="main-menu-header">
+					<div class="container">
+						<div id="nav-menu">
+							<ul>
+								<li class="current-menu-item"><a href="index" th:href="@{/}"> Trang chủ</a></li>
+								<li><a href="/product">Tất cả điện thoại</a></li>
+								<li>
+									<a href="#">Sản phẩm</a>
+									<ul>
+										<li><a href="/product">Điện thoại</a></li>
+									</ul>
+								</li>
+							
+							</ul>
+							<div class="clear"></div>
+						</div>
+					</div>
+				</div>
+				</div>
+				</header>
+		<div id="content">
+				<div class="container">
+				<div class="flexslider" >
+						      <ul class="slides">
 									<li>
-										<a href="#">Sản phẩm</a>
-										<ul>
-											<li><a href="/product">Điện thoại</a></li>
-										</ul>
+										<img src="https://cdn.tgdd.vn/2021/07/banner/830-300-830x300-12.png">		
 									</li>
-
-								</ul>
-								<div class="clear"></div>
-							</div>
-						</div>
-					</div>
-			</div>
-			</header>
+									<li>
+										<img src="//cdn.tgdd.vn/2021/07/banner/iphone-12-830-300-830x300.png">									
+									</li>
+									<li>
+										<img src="//cdn.tgdd.vn/2021/08/banner/830-300-830x300.png">									
+									</li>
+							</ul>
+						  </div>
+				</div>
 		</div>
-		<div class="single">
+		<div>
+		
+		</div>
 			<form th:action="@{/product/{id}}" method="get" th:object="${product}">
 				<div class="container">
 					<div class="col-md-9">
@@ -156,16 +161,18 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 							</div>
 						</div>
 						<div class="col-md-7 single-top-in">
-							<div>
+							<div >
 								<h2 th:text="${product.name_product}" style="color: red"></h2>
 								<p th:text="${product.description}" ></p>
-								<label class="add-to item_price" th:text="${product.price}"></label>
+								<label class="add-to item_price" th:if="${product.price_sell == 0}" th:text="${product.price}"></label>
+								<label class="add-to item_price" th:unless="${product.price_sell == 0}" th:text="${product.getPriceSell()}" ></label>
+								<label class="price-old"><strike th:unless="${product.price_sell == 0}" th:text="${product.price}"/></label>
 								<div class="action" style="margin-top : 15px">
 										<h5><a href="#" class="bouncy">Mua Ngay</a>
-										<a href="#" class="bouncy" >Thêm Vào giỏ</a>
+										<a th:href="@{/product_id/{proId}(proId=${product.Id})}" class="bouncy" >Thêm Vào giỏ</a>
 										</h5>
 										<div class="clear"></div>
-									</div>
+								</div>
 								</div>
 								<div class="star-on" style="margin-top : 15px">
 									<ul>
@@ -187,15 +194,11 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 										" width="450" height="180"/>
 									</div>
 								</div>
-								
 						<div class="clearfix"> </div>
-						
 			</form>
 		</div>
 		<div class="attribute-intro">
-			<table class="tbdrutgon" border="0" cellspacing="0" cellpadding="0">
 				<tbody>
-
 					<div class='info-more' style="color: #753">
 						<ul>
 							<p><span style="font-size: 11pt;margin-top : 15px">► <strong>Ho&agrave;n tiền 100%</strong> nếu ph&aacute;t hiện h&agrave;ng dựng</span></p>
@@ -207,10 +210,13 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 						</ul>
 					</div>
 				</tbody>
+		</div>
 						<details>
 								<summary><a class="cart item_add">Thông Tin Chi tiết......</a></summary>
 								<p th:text="${product.more_details}"></p>
-							</details>
+						</details>
+		<div>
+			<table>
 				<tbody>
 					<tr class="tbd1">
 						<td class="tbdrg_name"><span
@@ -302,7 +308,84 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 								nhật</span></td>
 					</tr>
 				</tbody>
+				</table>
 		</div>
+		</div>
+		<footer>
+				<div class="container">
+					<div class="row">
+						<div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+							<div class="box-footer info-contact">
+								<h3>Thông tin liên hệ</h3>
+								<div class="content-contact">
+									<p>Website chuyên cung cấp thiết bị điện tử hàng đầu Việt Nam</p>
+									<p>
+										<strong>Địa chỉ:</strong> Green Academy Quận 1 - TPHCM
+									</p>
+									<p>
+										<strong>Email: </strong> kamusuyurikun@gmail.com
+									</p>
+									<p>
+										<strong>Điện thoại: </strong> 0358949xxx
+									</p>
+									<p>
+										<strong>Website: </strong> greenacademy.edu.vn
+									</p>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+							<div class="box-footer info-contact">
+								<h3>Thông tin khác</h3>
+								<div class="content-list">
+									<ul>
+										<li><a href="#"><i class="fa fa-angle-double-right"></i> Chính sách bảo mật</a></li>
+										<li><a href="#"><i class="fa fa-angle-double-right"></i> Chính sách đổi trả</a></li>
+										<li><a href="#"><i class="fa fa-angle-double-right"></i> Phí vẫn chuyển</a></li>
+										<li><a href="#"><i class="fa fa-angle-double-right"></i> Hướng dẫn thanh toán</a></li>
+										<li><a href="#"><i class="fa fa-angle-double-right"></i> Chương trình khuyến mãi</a></li>
+									</ul>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+							<div class="box-footer info-contact">
+								<h3>Ý kiến đóng góp</h3>
+								<div class="content-contact">
+									<form action="/" method="GET" role="form">
+										<div class="row">
+											<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+												<input type="text" name="" id="" class="form-control" placeholder="Họ và Tên">
+											</div>
+											<div class="col-xs-12 col-sm-12 col-md-12 col-lg-6">
+												<input type="email" name="" id="" class="form-control" placeholder="Địa chỉ mail">
+											</div>
+											<div class="col-xs-12 col-sm-12 col-md-12 col-lg-6">
+												<input type="text" name="" id="" class="form-control" placeholder="Số điện thoại">
+											</div>
+											<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+												<input type="text" name="" id="" class="form-control" placeholder="Tiêu đề">
+											</div>
+											<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+												<textarea name="" id="" cols="30" rows="10" class="form-control"></textarea>
+											</div>
+										</div>
+										<button type="submit" class="btn-contact">Liên hệ ngay</button>
+									</form>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="copyright">
+					<p>Copyright © 2021 Edit And Fix by Lâm Tiến Thành - Thế Dân</p>
+				</div>
+			</footer>
+		</div>
+		
+		
+		
+		
 		<!-- slide -->
 		<script th:src="@{/pro/js/jquery.min.js}"></script>
 		<script th:src="@{/pro/js/imagezoom.js}"></script>

@@ -18,105 +18,104 @@
 		integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
 	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.css" rel="stylesheet"
 		type="text/css" />
+		<script th:src="@{pro/js/simpleCart.min.js}"> </script>
 	<script
 		type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
 </head>
 
 <body>
 	<form th:action="@{/index}" method="get">
-		<div id="wallpaper" class="relative">
+		<div id="wallpaper"class="relative">
 			<div class="fixed">
-				<header class="fixcolor">
-					<div class="top">
-						<div class="container">
-							<div class="row">
-								<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
-									<p>Chào mừng đến với shop bán hàng!</p>
-								</div>
-								<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
-									<span class="menu"></span>
-									<div class="top-menu">
-										<ul class="nav">
-											<li sec:authorize="isAuthenticated()"><a th:href="@{/aboutus}">Đơn Hàng của
-													tôi</a></li>
-											<li sec:authorize="isAnonymous()"><a id="lo-gin" th:href="@{/Login}">Đăng
-													Nhập</a></li>
-											<li sec:authorize="isAuthenticated()"><a th:href="@{/profile}"
-													sec:authentication="name">Đăng Nhập</a></li>
-											<!-- <a href="profile" sec:authentication="principal.authorities"></a> -->
-											<li sec:authorize="isAnonymous()"> <a th:href="@{/register}">Đăng Ký</a>
-											</li>
-											<li sec:authorize="isAuthenticated()"><a th:href="@{/logout}">Thoát</a></li>
-											<li><a th:href="@{/quydinhgiaohang}">Quy Định giao hàng</a></li>
-										</ul>
-									</div>
+			<header class="fixcolor">
+				<div  class="top" >
+					<div class="container">
+						<div class="row">
+							<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+								<p>Chào mừng đến với shop bán hàng!</p>
+							</div>							
+							<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+							<span class="menu"></span>
+								<div class="top-menu">
+									<ul class="nav">
+										<li sec:authorize="isAuthenticated()"><a th:href="@{/cart}">Đơn Hàng của tôi</a></li>
+										<li sec:authorize="isAnonymous()"><a id="lo-gin" th:href="@{/Login}" >Đăng Nhập</a></li>
+										<li sec:authorize="isAuthenticated()"><a th:href="@{/profile}" sec:authentication="name">Đăng Nhập</a></li> 
+										 <!-- <a href="profile" sec:authentication="principal.authorities"></a> --> 
+										<li sec:authorize="isAnonymous()">	<a th:href="@{/register}">Đăng Ký</a></li>
+										<li sec:authorize="isAuthenticated()"><a th:href="@{/logout}">Thoát</a></li> 
+										<li><a th:href="@{/quydinhgiaohang}">Quy Định giao hàng</a></li>
+									</ul>
 								</div>
 							</div>
 						</div>
 					</div>
-					<div class="main-header">
-						<div class="container">
-							<div class="row">
-								<div class="col-6 col-xs-6 col-sm-6 col-md-3 col-lg-3 order-md-0 order-0">
-									<div class="logo">
-										<a href="#"><img th:src="@{images/logo.png} " alt=""></a>
-										<h1>Website bán hàng</h1>
-									</div>
+				</div>
+				<div class="main-header">
+					<div class="container">
+						<div class="row">
+							<div class="col-6 col-xs-6 col-sm-6 col-md-3 col-lg-3 order-md-0 order-0">
+								<div class="logo">
+									<a href="#"><img th:src="@{http://localhost:9090/images/logo.png} "alt=""></a>
+									<h1>Website bán hàng</h1>
 								</div>
-								<div class="col-12 col-xs-12 col-sm-12 col-md-6 col-lg-6 order-md-1 order-2">
-									<div class="form-seach-product">
-										<form action="/" method="GET" role="form">
-											<select name="" id="input" class="form-control" required="required">
-												<option value="">Chọn danh mục</option>
-												<option value="1">Điện thoại</option>
-												<option value="2">Máy tính bản</option>
-												<option value="3">Lap top</option>
-												<option value="4">Phụ kiện</option>
-											</select>
-											<div class="input-seach">
-												<input type="text" name="s" id="" class="form-control">
-												<button type="submit" class="btn-search-pro"><i
-														class="fa fa-search"></i></button>
-											</div>
-											<div class="clear"></div>
-										</form>
-									</div>
-								</div>
-								<div class="col-6 col-xs-6 col-sm-6 col-md-3 col-lg-3 order-md-2 order-1"
-									style="text-align: right">
-									<a href="#" class="icon-cart">
-										<div class="icon">
-											<i class="fa fa-shopping-cart" aria-hidden="true"></i>
-											<span></span>
+							</div>
+							<div class="col-12 col-xs-12 col-sm-12 col-md-6 col-lg-6 order-md-1 order-2">
+								<div class="form-seach-product">
+									<form action="/" method="GET" role="form">
+										<select name="" id="input" class="form-control" required="required">
+											<option value="">Chọn danh mục</option>
+											<option value="1">Điện thoại</option>
+											<option value="2">Máy tính bản</option>
+											<option value="3">Lap top</option>
+											<option value="4">Phụ kiện</option>
+										</select>
+										<div class="input-seach">
+											<input type="text" name="s" id="" class="form-control">
+									<button type="submit" class="btn-search-pro"><i class="fa fa-search"></i></button>
 										</div>
-										<div class="info-cart">
-											<p>Giỏ hàng</p>
-											<span>0đ</span>
-										</div>
-										<span class="clear"></span>
-									</a>
+										<div class="clear"></div>
+									</form>
 								</div>
 							</div>
-						</div>
-					</div>
-					<div class="main-menu-header">
-						<div class="container">
-							<div id="nav-menu">
-								<ul>
-									<li class="current-menu-item"><a href="index" th:href="@{/}"> Trang chủ</a></li>
-									<li><a href="#">Giới thiệu</a></li>
-									<li>
-										<a href="#">Sản phẩm</a>
-										<ul>
-											<li><a href="/product">Điện thoại</a></li>
-										</ul>
-									</li>
-								</ul>
-								<div class="clear"></div>
+							<div class="col-6 col-xs-6 col-sm-6 col-md-3 col-lg-3 order-md-2 order-1" style="text-align: right" >
+								<a href="/cart" class="icon-cart" >
+									<div class="icon">
+										<i class="fa fa-shopping-cart" aria-hidden="true"></i>
+										<a>
+										<span th:if ="${user !=null}" th:text="${#lists.size(cartlist)}"></span>
+										<span th:if ="${user ==null}">0</span>
+										</a>
+									</div>
+									<div class="info-cart">
+										<p>Giỏ hàng</p>
+										<span>0đ</span>
+									</div>
+									<span class="clear"></span>
+								</a>
 							</div>
 						</div>
 					</div>
-			</div>
+				</div>
+				<div class="main-menu-header">
+					<div class="container">
+						<div id="nav-menu">
+							<ul>
+								<li class="current-menu-item"><a href="index" th:href="@{/}"> Trang chủ</a></li>
+								<li><a href="/product">Tất cả điện thoại</a></li>
+								<li>
+									<a href="#">Sản phẩm</a>
+									<ul>
+										<li><a href="/product">Điện thoại</a></li>
+									</ul>
+								</li>
+							
+							</ul>
+							<div class="clear"></div>
+						</div>
+					</div>
+				</div>
+				</div>
 			</header>
 			<div id="content">
 				<div class="container">
@@ -162,25 +161,33 @@
 																				<li>
 																					<span class="k">Tổng sản phẩm</span>
 																					<span id="order-quantity"
-																						class="v">0</span>
+																						class="v"> <b th:text="${#lists.size(cartlist)}">
+																					</b>
+																					</span>
 																				</li>
 																				<li>
 																					<span class="k">Tổng tạm tính</span>
 																					<span id="order-subtotal"
-																						class="v">0 đ</span>
+																						class="v">
+																						<b th:text="${#numbers.formatCurrency({#aggregates.sum(cartlist.![product.price1])})}" ></b>
+																						</span>
 																				</li>
 																				<li>
 																					<span class="k">Phí giao hàng (<a
 																							target="_blank"
-																							href="/chinh-sach-giao-hang.html"
+																							href="/quydinhgiaohang"
 																							title="Chi tiết chính sách giao hàng">?</a>)</span>
 																					<span class="v"></span>
 																				</li>
 																				<li class="sep"></li>
 																				<li class="total">
 																					<span class="k">Tổng cộng</span>
-																					<span id="order-total"
-																						class="v">0 đ</span>
+																					<span name ="order-total" class="v">
+																					<b th:text="${#numbers.formatCurrency({#aggregates.sum(cartlist.![getTotal1()])})}" > </b>
+																					</span>
+																					<span>
+																					<b th:name="str1" ></b>
+																					</span>
 																				</li>
 																			</ul>
 																		</div>
@@ -253,7 +260,8 @@
 																			<th class="action" width="1%">&nbsp;</th>
 																		</tr>
 																	</thead>
-																	<tbody th:each="listcart, status:${cartlist}">
+																	
+																	<tbody class="bodyproduct" th:each="listcart, status:${cartlist}">
 																		<tr class="thisproduct" th:with="pro = ${listcart.product}">
 																		<div th:unless="${#lists.isEmpty(listcart)}" ></div>
 																		<div th:if="${#lists.isEmpty(listcart)}" >
@@ -268,67 +276,31 @@
 																					th:src="@{${pro.ImageProduct}}" />
 																			</td>
 																			<td class="name">
-																				<div style="color: #999;" ><a th:text="${pro.name_product}"></a>
+																				<div style="color: #999;" ><a th:href="@{/product_code/{id}(id=${pro.product_code})}" th:text="${pro.name_product}"></a>
 																				 </div>
 																			</td>
 																			<td class="unit">
-																				<label th:text="${pro.price}" ></label>
+																				<label id="price_" th:text="${pro.price}" ></label>
 																				<!--<span class="product__price--list-price price price--list-price">
                                             <span class="price__value"></span><span class="price__symbol">đ</span>
                                         </span>-->
 																			</td>
 																			<td class="quantity">
-																				<input type="hidden"
-																					name="variants[363365][price]"
-																					id="price_363365"
-																					value="245000.00" />
-
-																				<select
-																					class="quantity__modifier quantity-modifier quantity-modifier-select "
-																					name="variants[363365][quantity]"
-																					id="quantity_363365">
-																					<option value="1">1</option>
-																					<option value="2">2</option>
-																					<option value="3">3</option>
-																					<option value="4">4</option>
-																					<option value="5">5</option>
-																					<option value="6"
-																						selected="selected">6</option>
-																					<option value="7">7</option>
-																					<option value="8">8</option>
-																					<option value="9">9</option>
-																					<option value="10">10</option>
-																					<option value="11">11</option>
-																					<option value="12">12</option>
-																					<option value="13">13</option>
-																					<option value="14">14</option>
-																					<option value="15">15</option>
-																					<option value="16">16</option>
-																					<option value="17">17</option>
-																					<option value="18">18</option>
-																					<option value="19">19</option>
-																					<option value="20">20</option>
-																				</select>
-																				<!---->
-																				<!--                                                <div class="input-group quantity__modifier quantity-modifier" data-min="1" data-max="15" data-step="1">-->
-																				<!--                                                    <span class="input-group-btn"><button class="btn btn-default quantity-decrease" type="button"><i class="hd hd-minus"></i></button></span>-->
-																				<!--                                                    <input class="form-control quantity-number" type="text" name="variants[-->
-																				<!--][quantity]" id="quantity_-->
-																				<!--" value="-->
-																				<!--" />-->
-																				<!--                                                    <span class="input-group-btn"><button class="btn btn-default quantity-increase" type="button"><i class="hd hd-plus"></i></button></span>-->
-																				<!--                                                </div>-->
+																				<input hidden />
+																				<select >
+																					<option th:each="i : ${#numbers.sequence(1, 10)}" th:value="${i}" th:text="${i}" th:selected="${i==listcart.quantity}"> </option>																														
+																				</select>																						
+																			<a th:href="@{/cart/edit/{quantity}/{Id}(Id=${listcart.Id})}"
+																					class="btn btn-xs"><i class="fa fa-edit"></i></a>
+																			<!--<td class="discount"> đ</td>-->
 																			</td>
 																			<!--<td class="discount"> đ</td>-->
-																			<td id="total_363365" class="total" th:text="${#lists.size(listcart.product)}">
-																	
+																			<td id="total" >
+																				<span th:text="${listcart.getTotal()}" ></span>
 																			</td>
 			
-																			<td class="removing"><a
-																					
-																					class="btn btn-xs"
-																					><i
-																						class="fa fa-trash"></i></a>
+																			<td class="removing" ><a th:href="@{/cart/delete/{Id}(Id=${listcart.Id})}"
+																					class="btn btn-xs"><i class="fa fa-trash"></i></a>
 																			</td>
 																		</tr>
 																		<tr class="sep-row">

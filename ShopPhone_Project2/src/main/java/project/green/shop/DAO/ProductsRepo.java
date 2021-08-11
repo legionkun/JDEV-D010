@@ -23,4 +23,10 @@ public List<Product> getNewProduct();
 @Query("Select u from Product u where u.Id=?1")
 public Product getById(Integer id);
 
+@Query("Select u from Product u where u.best_sell= 1")
+public List<Product> getBestSeller();
+
+@Query("Select u from Product u where u.price_sell != 0")
+public List<Product> getprice_sell();
+
 }

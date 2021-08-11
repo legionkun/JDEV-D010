@@ -1,10 +1,14 @@
 package project.green.shop.model;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.text.NumberFormat;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Locale;
+import java.util.Optional;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -19,6 +23,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+
+import org.thymeleaf.util.AggregateUtils;
 @Entity
 @Table(name= "products")
 public class Product implements Serializable{
@@ -167,7 +173,10 @@ public class Product implements Serializable{
 		public void setPrice(double price) {
 			this.price = price;
 		}
-
+		public double getPrice1()
+		{
+			return price;
+		}
 		public double getPrice_sell() {
 			return price_sell;
 		}
@@ -241,5 +250,18 @@ public class Product implements Serializable{
 			System.out.println("model  "+Image );
 			return "http://localhost:9090/image-products/"+this.product_code + "/" + this.Image;
 		}
-				
+		
+		@Transient
+		public String getPriceSell()
+		{
+			double pricesell = getPrice1();
+			double percent = getPrice_sell();
+			double totalpricesell = (pricesell/100) * (100 - percent)  ;
+			Locale localeVN = new Locale("vi", "VN");
+			NumberFormat currencyVN = NumberFormat.getCurrencyInstance(localeVN);
+			String str1 = currencyVN.format(totalpricesell);
+			return str1;
+		}
+
+
 }

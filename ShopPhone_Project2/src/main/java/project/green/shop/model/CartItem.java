@@ -1,6 +1,9 @@
 package project.green.shop.model;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
+import java.text.NumberFormat;
+import java.util.Locale;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -12,6 +15,9 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
+
+import org.thymeleaf.util.AggregateUtils;
 
 @Entity
 @Table(name= "cart_items")
@@ -84,5 +90,24 @@ public class CartItem implements Serializable{
 		return serialVersionUID;
 	}
 	
+	@Transient
+	public String getTotal()
+	{	
+		double quanlity = getQuantity();
+		double price = product.getPrice1();
+		double total = quanlity * price;
+		Locale localeVN = new Locale("vi", "VN");
+		NumberFormat currencyVN = NumberFormat.getCurrencyInstance(localeVN);
+		String str1 = currencyVN.format(total);
+		return str1;
+	}
 	
+	@Transient
+	public double getTotal1()
+	{	
+		double quanlity = getQuantity();
+		double price = product.getPrice1();
+		double total = quanlity * price;
+		return total;
+	}
 }
