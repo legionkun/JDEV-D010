@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Website bán hàng đơn giản</title>
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,500,500i">
+	<link rel="stylesheet" type="text/css" href="libs/bootstrap/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="libs/font-awesome/css/font-awesome.min.css">
+	<link rel="stylesheet" type="text/css" href="css/main.css">
+	<link rel="stylesheet" type="text/css" href="css/scrollHeader.css">
+	<link rel="stylesheet" type="text/css" href="css/responsive.css">
+	<link rel="stylesheet" href="css/scrolling.css">
+	<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet"
+		integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.css" rel="stylesheet"
+		type="text/css" />
+		<script th:src="@{pro/js/simpleCart.min.js}"> </script>
+	<script
+		type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+</head>
+
+<body>
+	<form th:action="@{/index}" method="get">
+		<div id="wallpaper"class="relative">
+			<div class="fixed">
+			<header class="fixcolor">
+				<div  class="top" >
+					<div class="container">
+						<div class="row">
+							<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+								<p>Chào mừng đến với shop bán hàng!</p>
+							</div>							
+							<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+							<span class="menu"></span>
+								<div class="top-menu">
+									<ul class="nav">
+										<li sec:authorize="isAuthenticated()"><a th:href="@{/cart}">Đơn Hàng của tôi</a></li>
+										<li sec:authorize="isAnonymous()"><a id="lo-gin" th:href="@{/Login}" >Đăng Nhập</a></li>
+										<li sec:authorize="isAuthenticated()"><a th:href="@{/profile}" sec:authentication="name">Đăng Nhập</a></li> 
+										 <!-- <a href="profile" sec:authentication="principal.authorities"></a> --> 
+										<li sec:authorize="isAnonymous()">	<a th:href="@{/register}">Đăng Ký</a></li>
+										<li sec:authorize="isAuthenticated()"><a th:href="@{/logout}">Thoát</a></li> 
+										<li><a th:href="@{/quydinhgiaohang}">Quy Định giao hàng</a></li>
+									</ul>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="main-header">
+					<div class="container">
+						<div class="row">
+							<div class="col-6 col-xs-6 col-sm-6 col-md-3 col-lg-3 order-md-0 order-0">
+								<div class="logo">
+									<a href="#"><img th:src="@{http://localhost:9090/images/logo.png} "alt=""></a>
+									<h1>Website bán hàng</h1>
+								</div>
+							</div>
+							<div class="col-12 col-xs-12 col-sm-12 col-md-6 col-lg-6 order-md-1 order-2">
+								<div class="form-seach-product">
+									<form action="/" method="GET" role="form">
+										<select name="" id="input" class="form-control" required="required">
+											<option value="">Chọn danh mục</option>
+											<option value="1">Điện thoại</option>
+											<option value="2">Máy tính bản</option>
+											<option value="3">Lap top</option>
+											<option value="4">Phụ kiện</option>
+										</select>
+										<div class="input-seach">
+											<input type="text" name="s" id="" class="form-control">
+									<button type="submit" class="btn-search-pro"><i class="fa fa-search"></i></button>
+										</div>
+										<div class="clear"></div>
+									</form>
+								</div>
+							</div>
+							<div class="col-6 col-xs-6 col-sm-6 col-md-3 col-lg-3 order-md-2 order-1" style="text-align: right" >
+								<a href="/cart" class="icon-cart" >
+									<div class="icon">
+										<i class="fa fa-shopping-cart" aria-hidden="true"></i>
+										<a>
+										<span th:if ="${user !=null}" th:text="${#lists.size(cartlist)}"></span>
+										<span th:if ="${user ==null}">0</span>
+										</a>
+									</div>
+									<div class="info-cart">
+										<p>Giỏ hàng</p>
+										<span>0đ</span>
+									</div>
+									<span class="clear"></span>
+								</a>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="main-menu-header">
+					<div class="container">
+						<div id="nav-menu">
+							<ul>
+								<li class="current-menu-item"><a href="index" th:href="@{/}"> Trang chủ</a></li>
+								<li><a href="/product">Tất cả điện thoại</a></li>
+								<li>
+									<a href="#">Sản phẩm</a>
+									<ul>
+										<li><a href="/product">Điện thoại</a></li>
+									</ul>
+								</li>
+							
+							</ul>
+							<div class="clear"></div>
+						</div>
+					</div>
+				</div>
+				</div>
+			</header>
+			<div id="content">
+				<div class="container">
+					<div class="slider">
+						<div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+							<div class="carousel-inner">
+								<div class="carousel-item active">
+									<img class="d-block w-100"
+										src="http://localhost:9090/images/giao-hang-mien-phi-vien-thong-thanh-cong.png"
+										alt="First slide">
+								</div>
+							</div>
+							<a class="carousel-control-prev" href="#carouselExampleControls" role="button"
+								data-slide="prev">
+								<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+								<span class="sr-only">Previous</span>
+							</a>
+							<a class="carousel-control-next" href="#carouselExampleControls" role="button"
+								data-slide="next">
+								<span class="carousel-control-next-icon" aria-hidden="true"></span>
+								<span class="sr-only">Next</span>
+							</a>
+						</div>
+					</div>
+				</div>
+				<div class="product-box">
+					<div class="container">
+						<div class="row">
+							<div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 order-lg-0 order-1">
+								<div class="sidebar">
+								<tr class="sep-row">
+																			<td colspan="7">
+																				<hr />
+																			</td>
+																		</tr>
+																	<div class="box">
+																		<div class="box__header">
+																			<h3 class="box__title">THANH TOÁN</h3>
+																		</div>
+																		<div class="box__body">
+																			<ul class="order-summary"
+																				style="text-align : left">
+																				<li>
+																					<span class="k">Tổng sản phẩm</span>
+																					<span id="order-quantity"
+																						class="v"> <b th:text="${#lists.size(cartlist)}">
+																					</b>
+																					</span>
+																				</li>
+																				<li>
+																					<span class="k">Tổng tạm tính</span>
+																					<span id="order-subtotal"
+																						class="v">
+																						<b th:text="${#numbers.formatCurrency({#aggregates.sum(cartlist.![product.price1])})}" ></b>
+																						</span>
+																				</li>
+																				<li>
+																					<span class="k">Phí giao hàng (<a
+																							target="_blank"
+																							href="/quydinhgiaohang"
+																							title="Chi tiết chính sách giao hàng">?</a>)</span>
+																					<span class="v"></span>
+																				</li>
+																				<li class="sep"></li>
+																				<li class="total">
+																					<span class="k">Tổng cộng</span>
+																					<span name ="order-total" class="v">
+																					<b th:text="${#numbers.formatCurrency({#aggregates.sum(cartlist.![getTotal1()])})}" > </b>
+																					</span>
+																					<span>
+																					<b th:name="str1" ></b>
+																					</span>
+																				</li>
+																			</ul>
+																		</div>
+																	</div>
+																	<div>
+																	<a href="/product" class="btn btn--back"><i
+																			class="hd hd-back"></i> Tiếp tục mua
+																	</a>
+
+																	<button id="main-button"
+																		class="btn btn-success btn-lg btn--buy-now btn--buy-now-new pull-right"
+																		name="submit">
+																		Mua
+																	</button>
+																</div>
+															<tr class="sep-row">
+																			<td colspan="7">
+																				<hr />
+																			</td>
+																		</tr>
+																				
+									<div class="widget">
+										<h3>
+											<i class="fa fa-bars"></i>
+											Sản phẩm mới
+										</h3>
+										<div class="content-w" th:each="list:${prolist}">
+											<ul>
+												<li>
+													<a th:href="@{/product_code/{id}(id=${list.product_code})}"><img
+															th:src="@{${list.ImageProduct}}" alt=""></a>
+													<h4><a th:href="@{/product_code/{id}(id=${list.product_code})}"
+															th:text="${list.name_product}"></a></h4>
+													<h4><a th:text="${list.price}"></a></h4>
+													<div class="clear"></div>
+												</li>
+											</ul>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="col-xs-12 col-sm-12 col-md-12 col-lg-9 order-lg-1 order-0">
+								<div class="product-section">
+									<h2 class="title-product">
+										<a href="#" class="title">Giỏ hàng của bạn</a>
+									</h2>
+									<main id="main" class="main-content clearfix page-checkout">
+										<div class="container">
+											<div class="content-sidebar--2">
+												<div class="content">
+													<form id="checkout-step-1" class="form form-blocking"
+														action="/checkout-step-2" method="post">
+														<div class="box box--no-padding">
+															<div class="box__header visible-xs visible-sm">
+																<h2 class="box__title">Thông tin sản phẩm</h2>
+															</div>
+
+															<div class="box__body">
+																<table class="table table--listing table--checkout">
+																	<thead>
+																		<tr>
+																			<th class="items0count" colspan="2">Sản phẩm
+																				trong giỏ hàng: <span
+																					class="badge" ></span></th>
+																			<th width="16%">Tên SP</th>
+																			<th width="16%">Đơn giá</th>
+																			<th width="16%">Số lượng</th>
+																			<!--<th width="16%">Giảm giá</th>-->
+																			<th width="16%">Thành tiền</th>
+																			<th class="action" width="1%">&nbsp;</th>
+																		</tr>
+																	</thead>
+																	
+																	<tbody class="bodyproduct" th:each="listcart, status:${cartlist}">
+																		<tr class="thisproduct" th:with="pro = ${listcart.product}">
+																		<div th:unless="${#lists.isEmpty(listcart)}" ></div>
+																		<div th:if="${#lists.isEmpty(listcart)}" >
+																		<h3>Bạn chưa có món hàng nào</h3>
+																		</div>
+																		<td>[[${status.count}]]</td>
+																			<td class="image">
+																				<input type="hidden"
+																					name="variants[product_id][]"
+																					value="363365" />
+																				<img class="pull-left"
+																					th:src="@{${pro.ImageProduct}}" />
+																			</td>
+																			<td class="name">
+																				<div style="color: #999;" ><a th:href="@{/product_code/{id}(id=${pro.product_code})}" th:text="${pro.name_product}"></a>
+																				 </div>
+																			</td>
+																			<td class="unit">
+																				<label id="price_" th:text="${pro.price}" ></label>
+																				<!--<span class="product__price--list-price price price--list-price">
+                                            <span class="price__value"></span><span class="price__symbol">đ</span>
+                                        </span>-->
+																			</td>
+																			<td class="quantity">
+																				<input hidden />
+																				<select >
+																					<option th:each="i : ${#numbers.sequence(1, 10)}" th:value="${i}" th:text="${i}" th:selected="${i==listcart.quantity}"> </option>																														
+																				</select>																						
+																			<a th:href="@{/cart/edit/{quantity}/{Id}(Id=${listcart.Id})}"
+																					class="btn btn-xs"><i class="fa fa-edit"></i></a>
+																			<!--<td class="discount"> đ</td>-->
+																			</td>
+																			<!--<td class="discount"> đ</td>-->
+																			<td id="total" >
+																				<span th:text="${listcart.getTotal()}" ></span>
+																			</td>
+			
+																			<td class="removing" ><a th:href="@{/cart/delete/{Id}(Id=${listcart.Id})}"
+																					class="btn btn-xs"><i class="fa fa-trash"></i></a>
+																			</td>
+																		</tr>
+																		<tr class="sep-row">
+																			<td colspan="7">
+																				<hr />
+																			</td>
+																		</tr>
+																	</tbody>
+																</table>
+															</div>
+															<div class="box__footer hidden-xs hidden-sm">
+																<div style=" float:right">
+																	<a href="/product" class="btn btn--back"><i
+																			class="hd hd-back"></i> Tiếp tục mua hàng</a>
+																	<button id="main-button"
+																		class="btn btn-success btn-lg btn--buy-now btn--buy-now-new pull-right"
+																		name="submit">
+																		ĐẶT HÀNG
+																	</button>
+																</div>
+															</div>
+														</div>
+													</form>
+												</div>
+											</div>
+										</div>
+									</main>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<footer>
+				<div class="container">
+					<div class="row">
+						<div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+							<div class="box-footer info-contact">
+								<h3>Thông tin liên hệ</h3>
+								<div class="content-contact">
+									<p>Website chuyên cung cấp thiết bị điện tử hàng đầu Việt Nam</p>
+									<p>
+										<strong>Địa chỉ:</strong> Green Academy Quận 1 - TPHCM
+									</p>
+									<p>
+										<strong>Email: </strong> kamusuyurikun@gmail.com
+									</p>
+									<p>
+										<strong>Điện thoại: </strong> 0358949xxx
+									</p>
+									<p>
+										<strong>Website: </strong> greenacademy.edu.vn
+									</p>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+							<div class="box-footer info-contact">
+								<h3>Thông tin khác</h3>
+								<div class="content-list">
+									<ul>
+										<li><a href="#"><i class="fa fa-angle-double-right"></i> Chính sách bảo mật</a>
+										</li>
+										<li><a href="#"><i class="fa fa-angle-double-right"></i> Chính sách đổi trả</a>
+										</li>
+										<li><a href="#"><i class="fa fa-angle-double-right"></i> Phí vẫn chuyển</a></li>
+										<li><a href="#"><i class="fa fa-angle-double-right"></i> Hướng dẫn thanh
+												toán</a></li>
+										<li><a href="#"><i class="fa fa-angle-double-right"></i> Chương trình khuyến
+												mãi</a></li>
+									</ul>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+							<div class="box-footer info-contact">
+								<h3>Ý kiến đóng góp</h3>
+								<div class="content-contact">
+									<form action="/" method="GET" role="form">
+										<div class="row">
+											<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+												<input type="text" name="" id="" class="form-control"
+													placeholder="Họ và Tên">
+											</div>
+											<div class="col-xs-12 col-sm-12 col-md-12 col-lg-6">
+												<input type="email" name="" id="" class="form-control"
+													placeholder="Địa chỉ mail">
+											</div>
+											<div class="col-xs-12 col-sm-12 col-md-12 col-lg-6">
+												<input type="text" name="" id="" class="form-control"
+													placeholder="Số điện thoại">
+											</div>
+											<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+												<input type="text" name="" id="" class="form-control"
+													placeholder="Tiêu đề">
+											</div>
+											<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+												<textarea name="" id="" cols="30" rows="10"
+													class="form-control"></textarea>
+											</div>
+										</div>
+										<button type="submit" class="btn-contact">Liên hệ ngay</button>
+									</form>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="copyright">
+					<p>Copyright © 2021 Edit And Fix by Lâm Tiến Thành - Thế Dân</p>
+				</div>
+			</footer>
+		</div>
+		<script src="libs/jquery-3.4.1.min.js"></script>
+		<script src="libs/bootstrap/js/bootstrap.min.js"></script>
+		<script src="js/main.js"></script>
+		<div id="fb-root"></div>
+		<script async defer crossorigin="anonymous"
+			th:src="@{https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v6.0}"></script>
+		<script src="https://code.jquery.com/jquery-3.5.1.min.js"
+			integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.4.1/cjs/popper.min.js"
+			integrity="sha256-T3bYsIPyOLpEfeZOX4M7J59ZoDMzuYFUsPiSN3Xcc2M=" crossorigin="anonymous"></script>
+
+		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+			integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
+			crossorigin="anonymous"></script>
+		<script src="js/scrollHeader.js"></script>
+	</form>
+</body>
+
+</html>

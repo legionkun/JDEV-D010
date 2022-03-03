@@ -14,6 +14,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name= "theloai")
 public class Theloai implements Serializable{
@@ -28,6 +30,7 @@ public class Theloai implements Serializable{
 		private String operating_system;
 		
 		@OneToMany(targetEntity=Product.class, mappedBy="Id",cascade=CascadeType.ALL, fetch = FetchType.EAGER)
+		@JsonIgnore
 	    private Set<Product> pro =new HashSet<>();
 		
 		public Theloai () {}

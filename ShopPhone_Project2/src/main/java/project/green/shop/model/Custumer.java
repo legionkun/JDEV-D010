@@ -5,6 +5,7 @@ package project.green.shop.model;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -19,6 +20,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name= "custumer")
@@ -72,6 +75,7 @@ public class Custumer implements Serializable{
 		@Column(name="verification_code")
 		private String varificationCode;
 		
+		@JsonIgnore
 		@OneToMany(targetEntity=CartItem.class, mappedBy="Id",cascade=CascadeType.PERSIST, fetch = FetchType.LAZY)
 	    private Set<CartItem> cartitem= new HashSet<>();
 		
@@ -198,6 +202,39 @@ public class Custumer implements Serializable{
 
 		public void setCartitem(Set<CartItem> cartitem) {
 			this.cartitem = cartitem;
+		}
+
+		@Override
+		public String toString() {
+			return "Custumer [Id=" + Id + ", Email=" + Email + ", Password=" + Password + ", Hoten=" + Hoten
+					+ ", Diachi=" + Diachi + ", Image=" + Image + ", SDT=" + SDT + ", createtime=" + createtime
+					+ ", lasttime=" + lasttime + ", enabled=" + enabled + ", TokenPassword=" + TokenPassword
+					+ ", auth_provider=" + auth_provider + ", varificationCode=" + varificationCode + ", cartitem="
+					+ cartitem + "]";
+		}
+
+		@Override
+		public int hashCode() {
+			return Objects.hash(Diachi, Email, Hoten, Id, Image, Password, SDT, TokenPassword, auth_provider, cartitem,
+					createtime, enabled, lasttime, varificationCode);
+		}
+
+		@Override
+		public boolean equals(Object obj) {
+			if (this == obj)
+				return true;
+			if (obj == null)
+				return false;
+			if (getClass() != obj.getClass())
+				return false;
+			Custumer other = (Custumer) obj;
+			return Objects.equals(Diachi, other.Diachi) && Objects.equals(Email, other.Email)
+					&& Objects.equals(Hoten, other.Hoten) && Id == other.Id && Objects.equals(Image, other.Image)
+					&& Objects.equals(Password, other.Password) && Objects.equals(SDT, other.SDT)
+					&& Objects.equals(TokenPassword, other.TokenPassword) && auth_provider == other.auth_provider
+					&& Objects.equals(cartitem, other.cartitem) && Objects.equals(createtime, other.createtime)
+					&& enabled == other.enabled && Objects.equals(lasttime, other.lasttime)
+					&& Objects.equals(varificationCode, other.varificationCode);
 		}	
 		
 }

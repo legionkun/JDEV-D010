@@ -12,6 +12,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name= "images_product")
 public class ImagesProduct implements Serializable{
@@ -30,6 +32,7 @@ public class ImagesProduct implements Serializable{
 		
 		@ManyToOne 
 	    @JoinColumn(name = "product_id", insertable = false, updatable = false)
+		@JsonIgnore
 		private Product product;
 		
 		private int product_code;

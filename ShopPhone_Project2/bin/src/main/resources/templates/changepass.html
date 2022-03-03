@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html  xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Register Form</title>
+  <link rel="stylesheet" href="css/styleRegister.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
+  
+</head>
+<body>
+<div class="form_wrapper">
+  <div class="form_container">
+    <div class="title_container">
+      <h2>Đổi Mật Khẩu</h2>
+    </div>
+    <div class="row clearfix">
+      <div class="">
+        <form  th:action="@{/reset_password}" method="post" >
+        <input type="hidden" name="token" th:value="${token}" />
+          <div class="input_field" id="" > <span><i aria-hidden="true" class="fa fa-lock"></i></span>
+            <input type="password" onkeyup='check();' name="password1" id="password1" autocomplete="current-password" placeholder="Password" required minlength=3  onChange="onChange()" /> 
+          </div>
+          <div class="input_field" id=""> <span><i aria-hidden="true" class="fa fa-lock"></i></span>
+            <input type="password" onkeyup='check();' name="password2" id="password2" autocomplete="current-password" minlength=3 placeholder="Nhập lại Password" required  onChange="onChange()"/><i class="far fa-eye" id="togglePassword" style="margin-left: -30px; cursor: pointer;"></i>
+          </div>
+          <div>
+           <span id='message'></span>
+          </div>                                      
+                <div class="select_arrow"></div>           	 
+          <input class="button" type="submit" value="Thay Đổi"/>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<p class="credit">Developed by <a href="https://facebook.com/JupiterElf148" target="_blank">Thế Dân</a></p>
+<!-- partial -->
+  <script src='https://use.fontawesome.com/4ecc3dbb0b.js'></script>
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+ <script th:inline="javascript" type="text/javascript" >
+  var check = function() {
+  if (document.getElementById('password1').value ==
+    document.getElementById('password2').value) {
+    document.getElementById('message').style.color = 'green';
+    document.getElementById('message').innerHTML = 'Trùng Khớp';
+  } else {
+    document.getElementById('message').style.color = 'red';
+    document.getElementById('message').innerHTML = 'Chưa Khớp Mật Khẩu';
+  } 
+}
+</script>
+<script th:inline="javascript" type="text/javascript" >
+     const togglePassword = document.querySelector('#togglePassword');
+  const password = document.querySelector('#password2');
+  togglePassword.addEventListener('click', function (e) {
+    // toggle the type attribute
+    const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
+    password.setAttribute('type', type);
+    // toggle the eye slash icon
+    this.classList.toggle('fa-eye-slash');
+});
+</script>
+ </body>
+</html>

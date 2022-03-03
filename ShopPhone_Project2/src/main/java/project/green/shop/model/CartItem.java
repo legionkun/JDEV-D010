@@ -1,7 +1,6 @@
 package project.green.shop.model;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
 import java.text.NumberFormat;
 import java.util.Locale;
 
@@ -17,7 +16,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
-import org.thymeleaf.util.AggregateUtils;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name= "cart_items")
@@ -36,12 +36,14 @@ public class CartItem implements Serializable{
 	private int quantity;
 	
 	@ManyToOne(cascade={ CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.LAZY)
-    @JoinColumn(name = "product_id",unique=true)
+    @JoinColumn(name = "product_id",nullable=false)
+	@JsonIgnore
 	private Product product;
 
 	
 	@ManyToOne (cascade={ CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.LAZY)
-    @JoinColumn(name = "custumer_id")
+    @JoinColumn(name = "custumer_id",nullable=false)
+	@JsonIgnore
 	private Custumer custumer;
 
 	private boolean confirm;

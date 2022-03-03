@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html  xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Register Form</title>
+  <link rel="stylesheet" href="css/styleRegister.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
+  
+</head>
+<body>
+<div class="form_wrapper">
+  <div class="form_container">
+    <div class="title_container">
+      <h2>Đăng Ký</h2>
+    </div>
+    <div class="row clearfix">
+      <div class="">
+        <form  th:action="@{/save}" th:object="${Custumer}" method="post" >
+     <div> <span th:if="${logError != null}" class="error">Email đã được sử dụng</span></div>      
+          <div class="input_field"> <span><i aria-hidden="true" class="fa fa-envelope"></i></span>
+            <input type="email" name="EMAIL" th:field="*{Email}" placeholder="Email" required /> 
+          </div>
+          <div class="input_field" id="" > <span><i aria-hidden="true" class="fa fa-lock"></i></span>
+            <input type="password" onkeyup='check();' name="password1" id="password1" autocomplete="current-password" placeholder="Password" required minlength=3  onChange="onChange()" /> 
+          </div>
+          <div class="input_field" id=""> <span><i aria-hidden="true" class="fa fa-lock"></i></span>
+            <input type="password" onkeyup='check();' name="password2" id="password2" autocomplete="current-password" th:field="*{Password}" minlength=3 placeholder="Nhập lại Password" required  onChange="onChange()"/><i class="far fa-eye" id="togglePassword" style="margin-left: -30px; cursor: pointer;"></i>
+          </div> <span id='message'></span>
+          </div>                                      
+                <div class="select_arrow"></div>
+              </div>
+			  <div class="input_field radio_option" id="sex">
+              <input type="radio"  id="rd1" required>
+              <label for="rd1">Nam</label>
+              <input type="radio" id="rd2" required>
+              <label for="rd2">Nữ</label>
+              </div>
+            <div class="input_field checkbox_option">
+            	<input type="checkbox" id="cb1"  required>
+    			<label for="cb1">Tôi đồng ý với các điều khoản trên</label>
+            </div>
+            <div class="input_field checkbox_option">
+            	<input type="checkbox" id="cb2" required>
+    			<label for="cb2">Điều khoản trên là gì tôi không biết?!!</label>
+            </div>
+          <input class="button" type="submit" value="Register"/>
+		   <div>
+            <p>Đã có tài khoản nhưng vẫn thích khịa Admin??!! <a href="Login.html">Đăng nhập</a></p>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<p class="credit">Developed by <a href="https://facebook.com/JupiterElf148" target="_blank">Thế Dân</a></p>
+<!-- partial -->
+  <script src='https://use.fontawesome.com/4ecc3dbb0b.js'></script>
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+ <script th:inline="javascript" type="text/javascript" >
+  var check = function() {
+  if (document.getElementById('password1').value ==
+    document.getElementById('password2').value) {
+    document.getElementById('message').style.color = 'green';
+    document.getElementById('message').innerHTML = 'Trùng Khớp';
+  } else {
+    document.getElementById('message').style.color = 'red';
+    document.getElementById('message').innerHTML = 'Chưa Khớp Mật Khẩu';
+  } 
+}
+</script>
+<script th:inline="javascript" type="text/javascript" >
+     const togglePassword = document.querySelector('#togglePassword');
+  const password = document.querySelector('#password2');
+  togglePassword.addEventListener('click', function (e) {
+    // toggle the type attribute
+    const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
+    password.setAttribute('type', type);
+    // toggle the eye slash icon
+    this.classList.toggle('fa-eye-slash');
+});
+</script>
+ </body>
+</html>

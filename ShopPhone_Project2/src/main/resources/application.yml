@@ -3,7 +3,7 @@ server:
   
 spring:
   datasource:
-    password: ''
+    password: '1234'
     url: jdbc:mysql://localhost:3306/shopfone
     username: root
   http:
